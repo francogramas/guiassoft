@@ -1,0 +1,5 @@
+@extends('layouts.dashboardAdmin')
+@section('page_heading','Listado de pacientes')
+ @section('section')
+	@include('herramientas.pacientes.pacientesListadoView')
+@stop()

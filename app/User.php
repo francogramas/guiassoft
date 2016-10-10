@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace guiassoft;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,7 +19,7 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->hasOne('App\Role', 'id', 'role_id');
+        return $this->hasOne('guiassoft\Role', 'id', 'role_id');
     }
 
     public function hasRole($roles)

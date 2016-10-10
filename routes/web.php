@@ -14,9 +14,13 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
+Route::resource('/pais','general\pais');
+Route::get('/departamentos/{id}','general\estadosController@getEstados');
+Route::get('/ciudades/{id}','general\ciudadesController@getCiudades');
 
-Route::get('user/{user}', [
-     'middleware' => ['auth', 'roles'],
-     'uses' => 'UserController@index',
-     'roles' => ['administrator', 'manager']
-]);	
+Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'manager']],
+ function () {
+	Route::resource('/admin/empresa', 'admin\empresaController');
+	Route::resource('/admin/pacientes', 'admin\pacientesController');
+	Route::resource('/admin/pacienteslistado', 'admin\pacientesListadoController');
+});

@@ -1,4 +1,4 @@
-<?php namespace App\Http\Middleware;
+<?php namespace guiassoft\Http\Middleware;
 
 // First copy this file into your middleware directoy
 
