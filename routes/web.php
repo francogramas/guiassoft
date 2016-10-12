@@ -23,4 +23,6 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::resource('/admin/empresa', 'admin\empresaController');
 	Route::resource('/admin/pacientes', 'admin\pacientesController');
 	Route::resource('/admin/pacienteslistado', 'admin\pacientesListadoController');
+	Route::resource('/admin/segurosmedicos', 'admin\contratacion\seguroMedicoController');
+	Route::resource('/admin/segurosmedicoslistado', 'admin\contratacion\seguroMedicoListadoController');
 });

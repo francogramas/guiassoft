@@ -1,9 +1,8 @@
-<?php namespace test\Http\Controllers\general;
+<?php namespace guiassoft\Http\Controllers\general;
 
-use test\Http\Requests;
-use test\Http\Controllers\Controller;
+use guiassoft\Http\Requests;
+use guiassoft\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
 
 class pais extends Controller {
 
@@ -15,8 +14,8 @@ class pais extends Controller {
 	public function index()
 	{
 		//
-		$pais = \test\Models\general\pais::select('id','name','sortname')->get();
-		$pais1 = \test\Models\general\pais::pluck('name','id')->prepend('Seleccione su pais');
+		$pais = \guiassoft\Model\general\pais::select('id','name','sortname')->get();
+		$pais1 = \guiassoft\Model\general\pais::pluck('name','id')->prepend('Seleccione su pais');
 		return View('/general/pais')->with('pais1',$pais1)->with('pais',$pais);
 	}
 

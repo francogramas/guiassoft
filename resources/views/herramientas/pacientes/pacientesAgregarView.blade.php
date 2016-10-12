@@ -22,12 +22,18 @@
 	</div>
 	<div class="col-sm-3">
 		<div class="form-group">
+			<label for="seguromedico_id">Seguro médico</label>
+				{!! Form::select('seguromedico_id', $seguromedico,'', ['id' => 'seguromedico_id','class'=>'form-control']) !!}			
+		</div>
+	</div>	
+</div>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="form-group">
 			<label for="apellido1">Primer apellido</label>
 			{!! Form::text('apellido1',null,['id'=>'apellido1','required'=>'required','class'=>'form-control','placeholder'=>'Primer apellido']) !!}
 		</div>
 	</div>
-</div>
-<div class="row">
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="apellido2">Segundo apellido</label>
@@ -45,15 +51,15 @@
 			<label for="nombre2">Segundo nombre</label>
 			{!! Form::text('nombre2',null,['id'=>'nombre2','class'=>'form-control','placeholder'=>'Segundo nombre']) !!}
 		</div>
-	</div>
+	</div>	
+</div>
+<div class="row">
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="cacimiento">Fecha de nacimiento</label>
 			{!! Form::date('nacimiento',null,['id'=>'nacimiento','class'=>'form-control','placeholder'=>'Fecha de nacimiento']) !!}
 		</div>
 	</div>
-</div>
-<div class="row">	
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="sexo_id">Sexo</label>
@@ -71,15 +77,15 @@
 			<label for="estado">Departamento/estado</label>    		
     		{!! Form::select('departamentos',['0'=>'Seleccione el estado/departamento'],null,['id'=>'departamentos','class'=>'form-control']) !!}
 		</div>
-	</div>
+	</div>	
+</div>
+<div class="row">
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="ciudad">Ciudad</label>
     		{!! Form::select('ciudad_id', ['0'=>'Seleccione la ciudad/municipio'],null,['id'=>'ciudad_id','class'=>'form-control']) !!}    			    		
 		</div>
 	</div>
-</div>
-<div class="row">
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="telefono">Teléfono</label>
@@ -91,7 +97,7 @@
 			<label for="correo">Correo electrónico</label>
 			{!! Form::email('correo',null,['id'=>'correo','class'=>'form-control','placeholder'=>'Correo Electrónico']) !!}
 		</div>
-	</div>
+	</div>	
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="zonaresidencia_id">Zona de residencia</label>			
@@ -99,16 +105,16 @@
 		</div>
 	</div>
 </div>
-<div class="row">
-	<div class="col-sm-8">
+<div class="row">	
+	<div class="col-sm-6">
 		<div class="form-group">
 			<label for="direccion">Dirección</label>
 			{!! Form::text('direccion',null,['id'=>'direccion','class'=>'form-control','required'=>'required','placeholder'=>'Dirección']) !!}
 		</div>		
 	</div>
-	<div class="col-sm-3">
+	<div class="col-sm-1">
 		<div class="form-group">		
-			<button type="submit" class="btn btn-primary" > {{ $texto }}  </button>
+			<br> <button type="submit" class="btn btn-primary" > {{ $texto }}  </button>
 		</div>
 	</div>
 </div>

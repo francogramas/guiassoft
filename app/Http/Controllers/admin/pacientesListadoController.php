@@ -16,11 +16,12 @@ use guiassoft\Model\general\sexo;
 class pacientesListadoController extends Controller
 {
     public function index(){
-    	$pacientes=pacientes::select('tipodocumentopaci.cod as tipodocumento','pacientes.id','pacientes.telefono','pacientes.nacimiento','pacientes.documento','pacientes.nombre1','pacientes.nombre2','pacientes.apellido1','pacientes.apellido2','tipousuario.descripcion as tipousuario','sexo.cod as sexo','estados.name as departamento','ciudades.name as ciudad')
+    	$pacientes=pacientes::select('tipodocumentopaci.cod as tipodocumento','pacientes.id','pacientes.telefono','pacientes.nacimiento','pacientes.documento','pacientes.nombre1','pacientes.nombre2','pacientes.apellido1','pacientes.apellido2','tipousuario.descripcion as tipousuario','sexo.cod as sexo','estados.name as departamento','ciudades.name as ciudad', 'seguromedico.razonsocial as seguromedico')
     	->join('tipodocumentopaci','tipodocumentopaci.id','=','pacientes.tipodocumentopaci_id')
     	->join('tipousuario','tipousuario.id','=','pacientes.tipousuario_id')
     	->join('zonaresidencia','zonaresidencia.id','=','pacientes.zonaresidencia_id')
-    	->join('sexo','sexo.id','=','pacientes.sexo_id')    	
+        ->join('sexo','sexo.id','=','pacientes.sexo_id')
+    	->join('seguromedico','seguromedico.id','=','pacientes.seguromedico_id')
     	->join('ciudades','ciudades.id','=','pacientes.ciudad_id')		
 		->join('estados','estados.id','=','ciudades.estados')
 		->join('pais','pais.id','=','estados.pais')->get();

@@ -26,12 +26,18 @@
 	</div>
 	<div class="col-sm-3">
 		<div class="form-group">
+			<label for="seguromedico_id">Seguro médico</label>
+				{!! Form::select('seguromedico_id', $seguromedico,$paciente{'seguromedico_id'}, ['id' => 'seguromedico_id','class'=>'form-control']) !!}			
+		</div>
+	</div>	
+</div>
+<div class="row">	
+	<div class="col-sm-3">
+		<div class="form-group">
 			<label for="apellido1">Primer apellido</label>
 			{!! Form::text('apellido1',$paciente{'apellido1'},['id'=>'apellido1','required'=>'required','class'=>'form-control','placeholder'=>'Primer apellido']) !!}
 		</div>
 	</div>
-</div>
-<div class="row">	
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="apellido2">Segundo apellido</label>
@@ -49,15 +55,15 @@
 			<label for="nombre2">Segundo nombre</label>
 			{!! Form::text('nombre2',$paciente{'nombre2'},['id'=>'nombre2','class'=>'form-control','placeholder'=>'Segundo nombre']) !!}
 		</div>
-	</div>
+	</div>	
+</div>
+<div class="row">	
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="cacimiento">Fecha de nacimiento</label>
 			{!! Form::date('nacimiento',$paciente{'nacimiento'},['id'=>'nacimiento','class'=>'form-control','placeholder'=>'Fecha de nacimiento']) !!}
 		</div>
 	</div>
-</div>
-<div class="row">	
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="sexo_id">Sexo</label>
@@ -75,15 +81,15 @@
 			<label for="estado">Departamento/estado</label>    		
     		{!! Form::select('departamentos',$estados,$paciente{'estados_id'},['id'=>'departamentos','class'=>'form-control']) !!}
 		</div>
-	</div>
+	</div>	
+</div>
+<div class="row">
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="ciudad">Ciudad</label>
     		{!! Form::select('ciudad_id', $ciudades,$paciente{'ciudad_id'},['id'=>'ciudad_id','class'=>'form-control']) !!}
 		</div>
 	</div>
-</div>
-<div class="row">
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="telefono">Teléfono</label>
@@ -95,7 +101,7 @@
 			<label for="correo">Correo electrónico</label>
 			{!! Form::text('correo',$paciente{'correo'},['id'=>'correo','class'=>'form-control','placeholder'=>'Correo Electrónico']) !!}
 		</div>
-	</div>
+	</div>	
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="zonaresidencia_id">Zona de residencia</label>			
@@ -103,8 +109,8 @@
 		</div>
 	</div>
 </div>
-<div class="row">
-	<div class="col-sm-8">
+<div class="row">	
+	<div class="col-sm-6">
 		<div class="form-group">
 			<label for="direccion">Dirección</label>
 			{!! Form::text('direccion',$paciente{'direccion'},['id'=>'direccion','class'=>'form-control','required'=>'required','placeholder'=>'Dirección']) !!}

@@ -20,8 +20,8 @@ class CreateSeguromedicoTable extends Migration
             $table->string('codigo', 6);
             $table->string('nit', 20);            
             $table->string('razonsocial', 60);            
-            $table->string('direccion', 6);
-            $table->string('telefono', 6);
+            $table->string('direccion', 255);
+            $table->string('telefono', 50);
             $table->integer('ciudad_id')->index()->unsigned();
 
             $table->timestamps();

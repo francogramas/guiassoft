@@ -11,12 +11,15 @@
 		<button type="submit" class="btn btn-primary" >Buscar</button>		
 	</div>
 </div>
-<table class="table table-striped">
+
+<table class="table table-striped" style="font-size: 10pt;">
 	<thead class="thead-inverse">
 		<tr>
 			<td>T. Documento</td>
 			<td>Documento Nº</td>
 			<td>Nombres y apellidos</td>
+			<td>T. Usuario</td>
+			<td>Seguro Médico</td>
 			<td>F. Nacimiento</td>
 			<td>Sexo</td>
 			<td>Departmento</td>
@@ -31,6 +34,8 @@
 			<td>{{ $paciente->tipodocumento }}</td>
 			<td>{{ $paciente->documento }}</td>
 			<td>{{ $paciente->apellido1.' '.$paciente->apellido2.' '.$paciente->nombre1.' '.$paciente->nombre2}}</td>
+			<td>{{ $paciente->tipousuario }}</td>
+			<td>{{ $paciente->seguromedico }}</td>			
 			<td>{{ $paciente->nacimiento }}</td>
 			<td>{{ $paciente->sexo }}</td>
 			<td>{{ $paciente->departamento }}</td>

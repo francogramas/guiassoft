@@ -19,16 +19,19 @@ use guiassoft\Model\pacientes\pacientes;
 use guiassoft\Model\pacientes\tipousuario;
 use guiassoft\Model\pacientes\zonaresidencia;
 use guiassoft\Model\general\sexo;
+use guiassoft\Model\empresa\seguromedico;
+
 
 
 class pacientesController extends Controller
 {
     public function index(){
+        $seguromedico=seguromedico::pluck('razonsocial','id');
     	$pais1 = pais::pluck('name','id')->prepend('Seleccione su pais');
-    	$tipousuario = tipousuario::pluck('descripcion','id')->prepend('Seleccione el tipo de usuario');
-    	$tipodocumentopaci = tipodocumentopaci::pluck('descripcion','id')->prepend('Seleccione el tipo de documento');
-    	$zonaresidencia = zonaresidencia::pluck('descripcion','id')->prepend('Seleccione la zona de residencia');
-    	$sexo = sexo::pluck('descripcion','id')->prepend('Seleccione el sexo');
+    	$tipousuario = tipousuario::pluck('descripcion','id');
+    	$tipodocumentopaci = tipodocumentopaci::pluck('descripcion','id');
+    	$zonaresidencia = zonaresidencia::pluck('descripcion','id');
+    	$sexo = sexo::pluck('descripcion','id');
     	$texto="Agregar Paciente";
 
     	return view ('admin/pacientes/pacientesAgregarView')
@@ -36,6 +39,7 @@ class pacientesController extends Controller
     	->with('tipousuario',$tipousuario)
     	->with('tipodocumentopaci',$tipodocumentopaci)
     	->with('texto',$texto)
+        ->with('seguromedico',$seguromedico)
     	->with('sexo',$sexo)
     	->with('zonaresidencia',$zonaresidencia);
     }
@@ -43,24 +47,27 @@ class pacientesController extends Controller
     public function store(insertPaciente $request){
     	pacientes::create($request->all());
 	    Session::flash('save','El paciente fue ingresado correctamente');
+        return redirect()->route('pacientes.index');               
     }
+    
     public function edit($id){
 
-    	$paciente=pacientes::select('tipodocumentopaci_id','tipousuario_id','pacientes.id','pacientes.telefono','pacientes.nacimiento','pacientes.documento','pacientes.nombre1','pacientes.nombre2','pacientes.apellido1','pacientes.apellido2','tipousuario.descripcion as tipousuario','sexo_id','estados.name as departamento','ciudades.name as ciudad','estados.id as estados_id','estados.pais as pais_id','zonaresidencia_id','correo','direccion')
+    	$paciente=pacientes::select('tipodocumentopaci_id','tipousuario_id','pacientes.id','pacientes.telefono','pacientes.nacimiento','pacientes.documento','pacientes.nombre1','pacientes.nombre2','pacientes.apellido1','pacientes.apellido2','tipousuario.descripcion as tipousuario','sexo_id','estados.name as departamento','ciudades.name as ciudad','estados.id as estados_id','estados.pais as pais_id','zonaresidencia_id','correo','pacientes.direccion','tipousuario.descripcion as tipousuario','pacientes.seguromedico_id')
     	->join('tipodocumentopaci','tipodocumentopaci.id','=','pacientes.tipodocumentopaci_id')
     	->join('tipousuario','tipousuario.id','=','pacientes.tipousuario_id')
     	->join('zonaresidencia','zonaresidencia.id','=','pacientes.zonaresidencia_id')
-    	->join('sexo','sexo.id','=','pacientes.sexo_id')    	
+        ->join('sexo','sexo.id','=','pacientes.sexo_id')        
+    	->join('seguromedico','seguromedico.id','=','pacientes.seguromedico_id')    	
     	->join('ciudades','ciudades.id','=','pacientes.ciudad_id')		
 		->join('estados','estados.id','=','ciudades.estados')
 		->where('pacientes.id',$id)
-		->first();    	
+		->first();
 
-    	
-    	$tipousuario = tipousuario::pluck('descripcion','id')->prepend('Seleccione el tipo de usuario');
-    	$tipodocumentopaci = tipodocumentopaci::pluck('descripcion','id')->prepend('Seleccione el tipo de documento');
-    	$zonaresidencia = zonaresidencia::pluck('descripcion','id')->prepend('Seleccione la zona de residencia');
-    	$sexo = sexo::pluck('descripcion','id')->prepend('Seleccione el sexo');
+        $seguromedico=seguromedico::pluck('razonsocial','id');  	
+    	$tipousuario = tipousuario::pluck('descripcion','id');
+    	$tipodocumentopaci = tipodocumentopaci::pluck('descripcion','id');
+    	$zonaresidencia = zonaresidencia::pluck('descripcion','id');
+    	$sexo = sexo::pluck('descripcion','id');
     	$pais1 = pais::pluck('name','id')->prepend('Seleccione su pais');
 	
 		$estados=estados::where('pais',$paciente{'pais_id'})->pluck('name','id');
@@ -74,17 +81,18 @@ class pacientesController extends Controller
     	->with('tipodocumentopaci',$tipodocumentopaci)
     	->with('texto',$texto)
     	->with('sexo',$sexo)
-    	->with('zonaresidencia',$zonaresidencia)
+        ->with('zonaresidencia',$zonaresidencia)
+    	->with('seguromedico',$seguromedico)
     	->with('paciente',$paciente)
     	->with('ciudades',$ciudades)
     	->with('estados',$estados);
     }
 
-    public function update(Request $request, $id){
+    public function update(updatePaciente $request, $id){
     	$pacientes=pacientes::FindOrFail($id);
     	$input=$request->all();
         $pacientes ->fill($input)->save();
-        Session::flash('update','El registro fué actualizado correctamente');
-        return redirect('admin/pacienteslistado');        
+        Session::flash('save','El registro fué actualizado correctamente');
+        return redirect('admin/pacienteslistado');
     }
 }

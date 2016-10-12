@@ -1,24 +1,23 @@
 <?php
 
-namespace guiassoft\Http\Requests\pacientes;
+namespace guiassoft\Http\Requests\contratacion;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Route;
 
 
-class updatePaciente extends FormRequest
+class updateSegurosMedicosRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    
+
     public function __construct(Route $route)
     {
         $this->route=$route;
     }
-
     public function authorize()
     {
         return true;
@@ -31,11 +30,10 @@ class updatePaciente extends FormRequest
      */
     public function rules()
     {
-        return [
-            'documento'=>'required|min:3|unique:pacientes,documento,'.$this->route->getParameter('paciente'),
-            'ciudad_id'=>'required|min:2|',
-            'tipodocumentopaci_id'=>'required|min:1|',
-            'zonaresidencia_id'=>'required|min:1|'
+       return [
+            'codigo'=>'required|min:3|unique:seguromedico,codigo,'.$this->route->getParameter('segurosmedico'),
+            'nit'=>'required|min:3|unique:seguromedico,nit,'.$this->route->getParameter('segurosmedico'),            
+            'ciudad_id'=>'required|min:2|'
         ];
     }
 }
