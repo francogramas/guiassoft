@@ -316,10 +316,10 @@
                                     <a href="#">Empleados<span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicoslistado') }}">Administrar</a>
+                                            <a href="{{ url ('/admin/empleadoslistado') }}">Administrar</a>
                                         </li>
                                         <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicos') }}">Agregar Nuevo</a>
+                                            <a href="{{ url ('/admin/empleados') }}">Agregar Nuevo</a>
                                         </li>                            
                                     </ul>
                                 </li>

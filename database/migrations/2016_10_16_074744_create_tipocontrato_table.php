@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEstadoempleadosTable extends Migration
+class CreateTipocontratoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateEstadoempleadosTable extends Migration
      */
     public function up()
     {
-         Schema::create('estadoempleados',
+        
+         Schema::create('tipocontrato',
             function($table) {
             $table->increments('id');
             $table->string('nombre', 255);
+            $table->string('descripcion', 255);            
         });
     }
 
@@ -27,6 +29,6 @@ class CreateEstadoempleadosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('estadoempleados');
+        Schema::drop('tipocontrato');
     }
 }

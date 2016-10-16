@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboardAdmin')
 @section('page_heading','Datos de la empresa')
 @section('section')
 {!! Form::model($paciente, ['route' => ['pacientes.update',$paciente->id],'method'=>'PUT']) !!}
