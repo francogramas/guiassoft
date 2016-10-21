@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboardAdmin')
 @section('page_heading','Datos de la empresa')
 @section('section')
 {!! Form::open(['route' => 'empresa.store','method'=>'POST']) !!}

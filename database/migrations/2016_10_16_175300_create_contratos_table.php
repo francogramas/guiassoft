@@ -25,8 +25,8 @@ class CreateContratosTable extends Migration
             $table->integer('tipocontrato_id')->index()->unsigned();            
             $table->integer('estadocontrato_id')->index()->unsigned();
             $table->double('monto');
-
-
+            $table->timestamps();
+            
             $table->foreign('seguromedico_id')->references('id')->on('seguromedico');
             $table->foreign('tipocontrato_id')->references('id')->on('tipocontrato');
             $table->foreign('estadocontrato_id')->references('id')->on('estadocontrato');

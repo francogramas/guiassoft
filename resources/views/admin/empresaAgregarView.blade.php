@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboardAdmin')
 @section('page_heading','Factura de Compra')
 @section('section')
 {!! Form::open(['route' => 'empresa.store','method'=>'POST']) !!}
