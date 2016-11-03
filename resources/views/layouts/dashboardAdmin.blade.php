@@ -332,13 +332,7 @@
                                             <a href="{{ url ('/admin/segurosmedicos') }}">Agregar Nueva</a>
                                         </li>                                        
                                     </ul>                                   
-                                </li>
-                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('admin/empresa') }}">Cups</a>
-                                </li>
-                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('admin/empresa') }}">Cie10</a>
-                                </li>
+                                </li>                             
                             </ul>
                         </li>
                 </div>
