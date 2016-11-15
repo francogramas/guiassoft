@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormaprocedimientoTable extends Migration
+class CreateDiasemanaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFormaprocedimientoTable extends Migration
      */
     public function up()
     {
-          Schema::create('formaprocedimiento',
+        Schema::create('diasemana',
             function($table) {
             $table->increments('id');
             $table->string('descripcion',255);
@@ -27,6 +27,6 @@ class CreateFormaprocedimientoTable extends Migration
      */
     public function down()
     {
-        Schema::drop('formaprocedimiento');
+        Schema::drop('diasemana');
     }
 }

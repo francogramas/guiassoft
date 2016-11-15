@@ -15,9 +15,9 @@ class CreatePosnoposTable extends Migration
     {
         Schema::create('posnopos',
             function($table) {
-            $table->increments('id');                            
+            $table->increments('id');
             $table->string('descripcion',255);
-        }); 
+        });
     }
 
     /**

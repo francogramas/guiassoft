@@ -17,6 +17,7 @@ Route::get('/', 'HomeController@index');
 Route::resource('/pais','general\pais');
 Route::get('/departamentos/{id}','general\estadosController@getEstados');
 Route::get('/ciudades/{id}','general\ciudadesController@getCiudades');
+Route::get('/tipoinstalaciones/{id}','admin\instalaciones\instalacionesController@getTipoInstalacion');
 
 Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'manager']],
  function () {
@@ -25,7 +26,43 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::resource('/admin/pacienteslistado', 'admin\pacientesListadoController');
 	Route::resource('/admin/segurosmedicos', 'admin\contratacion\seguroMedicoController');
 	Route::resource('/admin/segurosmedicoslistado', 'admin\contratacion\seguroMedicoListadoController');
-	Route::resource('/admin/empleados', 'admin\contratacion\empleadosController');	
-	Route::resource('/admin/empleadoslistado', 'admin\contratacion\empleadoslistadoController');	
-	Route::resource('/admin/contratos', 'admin\contratacion\contratosController');	
+	Route::resource('/admin/empleados', 'admin\contratacion\empleadosController');
+	Route::resource('/admin/empleadoslistado', 'admin\contratacion\empleadoslistadoController');
+	Route::resource('/admin/contratos', 'admin\contratacion\contratosController');
+	Route::resource('/admin/servicios', 'admin\servicios\asignacionController');
+	Route::resource('/admin/instalaciones', 'admin\instalaciones\instalacionesController');
+
+
+	Route::post('/serviciosCrear','admin\servicios\asignacionController@store');
+	Route::post('/especialidadCrear','admin\servicios\asignacionController@storeEspecialidad');
+	Route::post('/cupsespecialidadCrear','admin\servicios\asignacionController@storeCupespecialidad');
+	Route::post('/instalacionCrear','admin\instalaciones\instalacionesController@storeInstalacion');
+	Route::post('/instalacionEmpleadoCrear','admin\instalaciones\instalacionesController@storeInstalacionEmpleado');
+
+	
+	Route::put('/serviciosactualizar/{id}','admin\servicios\asignacionController@updateServicios');
+	Route::put('/especialidadactualizar/{id}','admin\servicios\asignacionController@updateEspecialidad');
+	Route::put('/cupsespecialidadactualizar/{id}','admin\servicios\asignacionController@updateCupsespecialidad');
+	Route::put('/instalacionactualizar/{id}','admin\instalaciones\instalacionesController@updateInstalacion');
+
+	Route::get('/cupsespecialidadborrar/{id}','admin\servicios\asignacionController@destroyCupsespecialidad');	
+	Route::get('/especialidadborrar/{id}','admin\servicios\asignacionController@destroyEspecialidad');	
+	Route::get('/serviciosborrar/{id}','admin\servicios\asignacionController@destroyServicios');	
+	Route::post('/instalacionborrar/{id}','admin\instalaciones\instalacionesController@destroyInstalacion');	
+	Route::post('/instalacionempleadoborrar/{id}','admin\instalaciones\instalacionesController@destroyInstalacionEmpleado');	
+
+
+	Route::get('/listarespecialidad/{id}','admin\servicios\asignacionController@listarEspecialidad');
+	Route::get('/listarservicios/{id}','admin\servicios\asignacionController@listarServicios');
+	Route::get('/listarcupsespecialidad/{id}','admin\servicios\asignacionController@listarCupsespecialidad');
+	Route::get('/listarambitos','admin\servicios\asignacionController@listarAmbitos');
+	
+	Route::get('/listarempleados/{id}','admin\instalaciones\instalacionesController@listarEmpleados');	
+	Route::get('/listarinstalaciones/{id}','admin\instalaciones\instalacionesController@listarInstalaciones');
+	Route::get('/listarinstalacionesempleado/{id}','admin\instalaciones\instalacionesController@listarInstalacionesEmpleados');
+
+	Route::get('/buscar/cups','admin\servicios\asignacionController@autocomplete');
+
+
+
 });

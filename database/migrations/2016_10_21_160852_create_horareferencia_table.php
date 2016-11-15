@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormaprocedimientoTable extends Migration
+class CreateHorareferenciaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateFormaprocedimientoTable extends Migration
      */
     public function up()
     {
-          Schema::create('formaprocedimiento',
+        Schema::create('horareferencia',
             function($table) {
             $table->increments('id');
-            $table->string('descripcion',255);
+            $table->time('hora');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateFormaprocedimientoTable extends Migration
      */
     public function down()
     {
-        Schema::drop('formaprocedimiento');
+        Schema::drop('horareferencia');
     }
 }

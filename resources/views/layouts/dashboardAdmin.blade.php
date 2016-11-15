@@ -244,7 +244,7 @@
                                 <li {{ (Request::is('*notifications') ? 'class="active"' : '') }}>
                                     <a href="{{ url('facturas/cotizacion') }}">Evento capitada</a>
                                 </li>
-                            </ul>                            
+                            </ul>
                         </li>
                         <li {{ (Request::is('*terceros') ? 'class="active"' : '') }}>
                             <a href="#"><i class="fa fa-users fa-fw"></i>Pacientes<span class="fa arrow"></span></a>
@@ -265,7 +265,7 @@
                                     <a href="{{ url ('/admin/pacientes' ) }}">Historia clínica</a>
                                 </li>
                             </ul>
-                        </li>                       
+                        </li>
                         <li >
                             <a href="#"><i class="fa fa-pencil-square fa-fw"></i>Contratación<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -277,8 +277,8 @@
                                         </li>
                                         <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
                                             <a href="{{ url ('/admin/segurosmedicos') }}">Agregar Nuevo</a>
-                                        </li>                                        
-                                    </ul>                                   
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <a href="#">Contratos<span class="fa arrow"></span></a>
@@ -288,8 +288,8 @@
                                         </li>
                                         <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
                                             <a href="{{ url ('/admin/contratos/create') }}">Agregar Nuevo</a>
-                                        </li>                                        
-                                    </ul>                                    
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <a href="#">Empleados<span class="fa arrow"></span></a>
@@ -299,7 +299,7 @@
                                         </li>
                                         <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
                                             <a href="{{ url ('/admin/empleados') }}">Agregar Nuevo</a>
-                                        </li>                            
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -309,30 +309,25 @@
                             <a href="#"><i class="fa  fa-wrench fa-fw"></i>Herramientas Administrativas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('admin/empresa') }}">Datos generales</a>                                    
+                                    <a href="{{ url ('admin/empresa') }}">Datos generales</a>
                                 </li>
+                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('admin/servicios') }}">Servicios</a>
+                                </li> 
+                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('admin/instalaciones') }}">Instalaciones</a>
+                                </li>                                                             
                                 <li>
-                                    <a href="#">Personal-Servicios<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicoslistado') }}">Listado</a>
-                                        </li>
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicos') }}">Agregar Nuevo</a>
-                                        </li>                                        
-                                    </ul>                                   
-                                </li>
-                                <li>
-                                    <a href="#">Instalaciones<span class="fa arrow"></span></a>
+                                    <a href="#">Agenda<span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
                                             <a href="{{ url ('/admin/segurosmedicoslistado') }}">Administrar</a>
                                         </li>
                                         <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
                                             <a href="{{ url ('/admin/segurosmedicos') }}">Agregar Nueva</a>
-                                        </li>                                        
-                                    </ul>                                   
-                                </li>                             
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                 </div>

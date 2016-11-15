@@ -4,9 +4,9 @@
 
 <div class="row">
 	<div class="col-sm-6">
-		<div class="form-group">			
+		<div class="form-group">
 				{!! Form::text('buscar_id',null,['id'=>'buscar_id','class'=>'form-control','placeholder'=>'Buscar...']) !!}
-				{!! Form::hidden('empleado_id',0,['id'=>'empleado_id']) !!}				
+				{!! Form::hidden('empleado_id',0,['id'=>'empleado_id']) !!}
 		</div>
 	</div>
 	<div class="col-sm-2">
@@ -47,7 +47,7 @@
 			<td>{!! $empleado->role !!}</td>
 			<td><a href="{{ route('empleados.edit',$empleado->id) }}">Editar</a></td>
 		</tr>
-	@endforeach		
+	@endforeach
 	</tbody>
 </table>
 

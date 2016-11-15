@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormaprocedimientoTable extends Migration
+class CreateSeriviciosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,23 @@ class CreateFormaprocedimientoTable extends Migration
      */
     public function up()
     {
-          Schema::create('formaprocedimiento',
-            function($table) {
+        Schema::create('servicios',
+         function ($table) {
             $table->increments('id');
-            $table->string('descripcion',255);
+            $table->string('nombre',255);
+            $table->integer('ambitoprocedimiento_id')->unsigned()->index();
+
+            $table->foreign('ambitoprocedimiento_id')->references('id')->on('Ambitoprocedimiento');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
+     *  
      * @return void
      */
     public function down()
     {
-        Schema::drop('formaprocedimiento');
+        Schema::drop('servicios');
     }
 }

@@ -28,15 +28,14 @@ class CreateEmpeladosTable extends Migration
             $table->integer('estadoempleados_id')->index()->unsigned();
             $table->integer('sexo_id')->unsigned()->index();
             $table->date('nacimiento');
-            $table->integer('role_id')->index()->unsigned();            
+            $table->integer('role_id')->index()->unsigned();
             $table->timestamps();
-            
 
             $table->foreign('ciudad_id')->references('id')->on('ciudades');
             $table->foreign('tipodocumentopaci_id')->references('id')->on('tipodocumentopaci');
             $table->foreign('sexo_id')->references('id')->on('sexo');
             $table->foreign('estadoempleados_id')->references('id')->on('estadoempleados');
-            $table->foreign('role_id')->references('id')->on('role');            
+            $table->foreign('role_id')->references('id')->on('role');
         });
     }
 

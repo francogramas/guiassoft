@@ -8,23 +8,23 @@
 			<div class="form-group">
 				<label for="pais">Tipo de Documento</label>
 				{!! Form::select('tipodocumento_id', $tipodocumento,$empresa1{'tipodocumento_id'}, ['id' => 'tipodocumento_id','class'=>'form-control']) !!}
-			</div>			
+			</div>
 			<div class="form-group">
 				<label for="razonsocial">Razón Social</label>
-				{!! Form::text('nombre',$empresa1{'nombre'},['id'=>'nombre','required'=>'required','class'=>'form-control','placeholder'=>'Razón Social']) !!}				
-			</div>			
+				{!! Form::text('nombre',$empresa1{'nombre'},['id'=>'nombre','required'=>'required','class'=>'form-control','placeholder'=>'Razón Social']) !!}
+			</div>
 			<div class="form-group">
-				<label for="estado">Departamento/estado</label>    		
-    			{!! Form::select('departamentos',['0'=>'Seleccione el estado/departamento'],null,['id'=>'departamentos','class'=>'form-control']) !!}    			
-			</div>			
+				<label for="estado">Departamento/estado</label>
+    			{!! Form::select('departamentos',['0'=>'Seleccione el estado/departamento'],null,['id'=>'departamentos','class'=>'form-control']) !!}
+			</div>
 			<div class="form-group">
 				<label for="direccion">Dirección</label>
-				{!! Form::text('direccion',$empresa1{'direccion'},['id'=>'direccion','required'=>'required','class'=>'form-control','placeholder'=>'Dirección']) !!}				
-			</div>			
+				{!! Form::text('direccion',$empresa1{'direccion'},['id'=>'direccion','required'=>'required','class'=>'form-control','placeholder'=>'Dirección']) !!}
+			</div>
 			<div class="form-group">
 				<label for="correo">Correo</label>
 				{!! Form::email('correo',$empresa1{'correo'},['id'=>'correo','required'=>'required','class'=>'form-control','placeholder'=>'Correo']) !!}
-			</div>			
+			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary" > {{ $texto }}  </button>
 			</div>
@@ -36,11 +36,11 @@
 			</div>
 			<div class="form-group">
 				<label for="pais">País</label>
-    			{!! Form::select('paises', $pais1,null, ['id' => 'paises','class'=>'form-control']) !!}				
+    			{!! Form::select('paises', $pais1,null, ['id' => 'paises','class'=>'form-control']) !!}
 			</div>
 			<div class="form-group">
 				<label for="ciudad">Ciudad</label>
-    			{!! Form::select('ciudad_id', ['0'=>'Seleccione la ciudad/municipio'],null,['id'=>'ciudad_id','class'=>'form-control']) !!}    			
+    			{!! Form::select('ciudad_id', ['0'=>'Seleccione la ciudad/municipio'],null,['id'=>'ciudad_id','class'=>'form-control']) !!}
 			</div>
 			<div class="form-group">
 				<label for="telefono">Teléfono</label>
@@ -48,7 +48,7 @@
 			</div>
 			<div class="form-group">
 				<label for="direccion">Código de habilitación</label>
-				{!! Form::text('codigo_habilitacion',$empresa1{'codigo_habilitacion'},['id'=>'codigo_habilitacion','required'=>'required','class'=>'form-control','placeholder'=>'Código de habilitación territorial']) !!}				
+				{!! Form::text('codigo_habilitacion',$empresa1{'codigo_habilitacion'},['id'=>'codigo_habilitacion','required'=>'required','class'=>'form-control','placeholder'=>'Código de habilitación territorial']) !!}
 			</div>
 		</div>
 	</div>
