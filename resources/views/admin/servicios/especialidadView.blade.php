@@ -47,6 +47,24 @@ $(".editarEspecialidad").click(function(event) {
     $("#especialidad_id").val(especialidadId);    
 });
 
+$(".asginarEspecialidad").click(function(event) {
+    var especialidadId = $('input[type=hidden]', $(this).closest("tr")).val();
+    
+    console.log(especialidadId);
+
+    $("#especialidad_id").val(especialidadId);
+     $.ajax({
+        url: '/listarempleadosEspecialidad/'+especialidadId,
+        type: 'GET',
+        success:function(data){
+          $("#divEspecialidadEmpleados").empty().html(data);
+        },
+        error:function(data){
+          console.log('Error');
+        }
+    });
+});
+
 $("#btnActualizarEspecialidad").click(function(event) {
   var especalidad= $("#txtEspecialidad").val();
   var especialidadId=$("#especialidad_id").val();
@@ -100,6 +118,7 @@ $("#btnActualizarEspecialidad").click(function(event) {
 			<td>
 				<a href="#" id="borrarespecialidad" class="btn btn-danger btn-xs borrarespecialidad" data-toggle="tooltip" data-placement="right" title="Eliminar"><i class="fa fa-times"></i></a>				
         <a href="#" id="editarEspecialidad" class="btn btn-info btn-xs editarEspecialidad" data-toggle="modal" data-target="#myModalEsp" data-placement="right" title="Editar"><i class="fa fa-edit"></i></a>
+        <a href="#" id="asginarEspecialidad" class="btn btn-warning btn-xs asginarEspecialidad" data-toggle="modal" data-target="#myModalEspEmpl" data-placement="right" title="Editar"><i class="fa fa-users"></i></a>
 			</td>
 		</tr>
 		@endforeach		
@@ -108,6 +127,7 @@ $("#btnActualizarEspecialidad").click(function(event) {
 
 <div class="container">
   <!-- Modal -->
+
   <div class="modal fade" id="myModalEsp" role="dialog">
     <div class="modal-dialog">
     
@@ -127,6 +147,25 @@ $("#btnActualizarEspecialidad").click(function(event) {
                 <button type="button" id="btnActualizarEspecialidad" class="btn btn-success" data-dismiss="modal"><i class="fa fa- fa-check"></i></button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="modal fade" id="myModalEspEmpl" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header"   >
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Asignar Especialidad a Profesionales</h4>
+        </div>
+        
+        <div class="modal-body">
+          <div id="divEspecialidadEmpleados">            
           </div>
         </div>
       </div>

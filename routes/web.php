@@ -31,10 +31,13 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::resource('/admin/contratos', 'admin\contratacion\contratosController');
 	Route::resource('/admin/servicios', 'admin\servicios\asignacionController');
 	Route::resource('/admin/instalaciones', 'admin\instalaciones\instalacionesController');
+	Route::resource('/agenda/agenda','agenda\agendaController');
 
 
 	Route::post('/serviciosCrear','admin\servicios\asignacionController@store');
+	Route::post('/agendaCrear','agenda\agendaController@store');
 	Route::post('/especialidadCrear','admin\servicios\asignacionController@storeEspecialidad');
+	Route::post('/especialidadEmpleadosCrear','admin\servicios\asignacionController@storeEspecialidadEmpleados');
 	Route::post('/cupsespecialidadCrear','admin\servicios\asignacionController@storeCupespecialidad');
 	Route::post('/instalacionCrear','admin\instalaciones\instalacionesController@storeInstalacion');
 	Route::post('/instalacionEmpleadoCrear','admin\instalaciones\instalacionesController@storeInstalacionEmpleado');
@@ -44,6 +47,7 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::put('/especialidadactualizar/{id}','admin\servicios\asignacionController@updateEspecialidad');
 	Route::put('/cupsespecialidadactualizar/{id}','admin\servicios\asignacionController@updateCupsespecialidad');
 	Route::put('/instalacionactualizar/{id}','admin\instalaciones\instalacionesController@updateInstalacion');
+	Route::put('/cambiarestadoCita/{cita}/{estado}','agenda\agendaController@cambiarEstadoCita');
 
 	Route::get('/cupsespecialidadborrar/{id}','admin\servicios\asignacionController@destroyCupsespecialidad');	
 	Route::get('/especialidadborrar/{id}','admin\servicios\asignacionController@destroyEspecialidad');	
@@ -55,14 +59,24 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::get('/listarespecialidad/{id}','admin\servicios\asignacionController@listarEspecialidad');
 	Route::get('/listarservicios/{id}','admin\servicios\asignacionController@listarServicios');
 	Route::get('/listarcupsespecialidad/{id}','admin\servicios\asignacionController@listarCupsespecialidad');
+	Route::get('/listaragenda/{empleados_id}/{fecha}','agenda\agendaController@listarAgenda');
+	
+	
 	Route::get('/listarambitos','admin\servicios\asignacionController@listarAmbitos');
 	
 	Route::get('/listarempleados/{id}','admin\instalaciones\instalacionesController@listarEmpleados');	
+	Route::get('/listarempleadosEspecialidad/{id}','admin\servicios\asignacionController@listarEmpleados');	
 	Route::get('/listarinstalaciones/{id}','admin\instalaciones\instalacionesController@listarInstalaciones');
 	Route::get('/listarinstalacionesempleado/{id}','admin\instalaciones\instalacionesController@listarInstalacionesEmpleados');
 
 	Route::get('/buscar/cups','admin\servicios\asignacionController@autocomplete');
+	Route::get('/buscar/pacientes','admin\pacientesController@autocomplete');
+	Route::get('/mostrar/pacientes/{id}','admin\pacientesController@pacientesCard');
+	Route::get('/mostrar/pacientesCitas/{id}','agenda\agendaController@mostrarListaCitasPacientes');
+	Route::get('/mostrarcita/{fecha}/{empleados_id}','agenda\agendaController@mostrarCita');
 
+	Route::get('/listar/especialidad/{id}','admin\servicios\asignacionController@getEspecialidad');
+	Route::get('/listar/especialidadempleados/{id}','admin\servicios\asignacionController@getEspecialidadEmpleados');
 
 
 });

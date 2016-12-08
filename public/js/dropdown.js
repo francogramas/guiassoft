@@ -262,5 +262,4 @@ $(function()
         $("#divlistarInstalaciones").empty().html(response);        
       });
   });
-
 });

@@ -3,14 +3,17 @@
 namespace guiassoft\Http\Controllers\admin\servicios;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use guiassoft\Http\Requests;
 use guiassoft\Http\Controllers\Controller;
 use guiassoft\Model\servicios\ambitoprocedimiento;
 use guiassoft\Model\servicios\servicios;
 use guiassoft\Model\servicios\especialidad;
+use guiassoft\Model\servicios\especialidadempleados;
 use guiassoft\Model\servicios\cupsespecialidad;
 use guiassoft\Model\general\cups;
+use guiassoft\Model\empresa\empleados;
 
 
 
@@ -54,6 +57,12 @@ class asignacionController extends Controller
         }        
     }
 
+    public function storeEspecialidadEmpleados(Request $request){
+        if ($request->ajax()){
+            $result=especialidadempleados::create($request->all());
+        }        
+    }
+
     public function storeCupespecialidad(Request $request){
         if ($request->ajax()){
                 $result = cupsespecialidad::create($request->all());
@@ -77,6 +86,31 @@ class asignacionController extends Controller
         $servicios=servicios::where('ambitoprocedimiento_id',$id)->get();
         return view('admin.servicios.serviciosView')
         ->with('servicios',$servicios);
+    }
+
+    public function listarEmpleados($id){
+        $empleados=DB::select('select * from empleados where id not in(select empleados_id from especialidadempleados where especialidad_id = ?)', [$id]);
+        return view('admin.servicios.empleadosView')
+        ->with('empleados',$empleados);
+    }
+
+    public function getEspecialidad (Request $request, $id)
+    {
+        if ($request->ajax()){
+            $especialidad=especialidad::select('id','nombre')->where('servicios_id',$id)->get();            
+            return response()->json($especialidad);
+        }
+    }
+
+    public function getEspecialidadEmpleados (Request $request, $id)
+    {
+        if ($request->ajax()){
+            $empleados=empleados::select('empleados.id','empleados.nombre','empleados.apellido1','empleados.apellido2')
+            ->join('especialidadempleados','especialidadempleados.empleados_id','=','empleados.id')
+            ->where('especialidadempleados.especialidad_id',$id)
+            ->get();
+            return response()->json($empleados);
+        }
     }
 
     public function listarAmbitos(){

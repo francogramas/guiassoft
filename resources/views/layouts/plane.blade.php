@@ -23,5 +23,6 @@
 	{!! Html::script('assets/scripts/frontend.js') !!}
 	{!! Html::script('assets/scripts/jquery-ui.min.js') !!}
 	{!! Html::script('js/dropdown.js') !!}	
+	{!! Html::script('js/agenda.js') !!} 
 </body>
 </html>

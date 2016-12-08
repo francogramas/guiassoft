@@ -1,3 +1,4 @@
+
 @extends('layouts.plane')
 @section('body')
  <div id="wrapper">
@@ -211,13 +212,14 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{ url('/logout') }}"
+                              <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">                                            
                                         <i class="fa fa-sign-out fa-fw"></i> Logout</a>
+
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
-                                        </form>
+                                        </form>                            
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -229,113 +231,83 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
+                        <!--li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group >
+                        </li -->
                         <li {{ (Request::is('/') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('/admin/pacientes') }}"><i class="fa fa-dashboard fa-fw"></i>Panel de Trabajo</a>
-                        </li>
-                        <li {{ (Request::is('/') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('/admin/pacientes') }}"><i class="fa fa-calendar fa-fw"></i>Agenda</a>
+                            <a href="{{ url ('') }}"><i class="fa fa-dashboard fa-fw"></i> Panel de Trabajo</a>
                         </li>
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Estadísticas</a>
                             <!-- /.nav-second-level -->
                         </li>
+                        <!--li {{ (Request::is('*forms') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('forms') }}"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                        </li-->
                         <li >
                             <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Facturas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li {{ (Request::is('*venta') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('facturas/venta') }}">Capitadas</a>
+                                    <a href="{{ url ('facturas/venta') }}">Venta</a>
                                 </li>
                                 <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('facturas/compra' ) }}">Por eventos</a>
+                                    <a href="{{ url ('facturas/compra' ) }}">Compra</a>
                                 </li>
                                 <li {{ (Request::is('*notifications') ? 'class="active"' : '') }}>
-                                    <a href="{{ url('facturas/cotizacion') }}">Evento capitada</a>
+                                    <a href="{{ url('facturas/cotizacion') }}">Cotizaciones</a>
+                                </li>
+                                <li {{ (Request::is('*typography') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('facturas/pedido') }}">Pedidos</a>
+                                </li>
+                                <li {{ (Request::is('*icons') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('facturas/devoluciones') }}"> Devoluciones</a>
                                 </li>
                             </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li {{ (Request::is('*terceros') ? 'class="active"' : '') }}>
-                            <a href="#"><i class="fa fa-users fa-fw"></i>Pacientes<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/admin/pacienteslistado') }}">Listado</a>
-                                </li>
-                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/admin/pacientes' ) }}">Registrar nuevo</a>
-                                </li>
-                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/admin/pacientes' ) }}">Cargue masivo</a>
-                                </li>
-                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/admin/pacientes' ) }}">Historial de asistencias</a>
-                                </li>
-                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/admin/pacientes' ) }}">Historia clínica</a>
-                                </li>
-                            </ul>
+                            <a href="{{ url ('/terceros') }}"><i class="fa fa-users fa-fw"></i>Terceros</a>
                         </li>
                         <li >
-                            <a href="#"><i class="fa fa-pencil-square fa-fw"></i>Contratación<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-qrcode fa-fw"></i>Productos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Seguros Médicos<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicoslistado') }}">Listado</a>
-                                        </li>
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicos') }}">Agregar Nuevo</a>
-                                        </li>
-                                    </ul>
+                                <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/categorias') }}">Categorias</a>
                                 </li>
-                                <li>
-                                    <a href="#">Contratos<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/contratos') }}">Administrar</a>
-                                        </li>
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/contratos/create') }}">Agregar Nuevo</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Empleados<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/empleadoslistado') }}">Administrar</a>
-                                        </li>
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/empleados') }}">Agregar Nuevo</a>
-                                        </li>
-                                    </ul>
+                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/productos' ) }}">Productos</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li >
-                            <a href="#"><i class="fa  fa-wrench fa-fw"></i>Herramientas Administrativas<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-qrcode fa-fw"></i>Herramientas de inventario<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('admin/empresa') }}">Datos generales</a>
+                                <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/inventario/consolidado') }}">Consolidado</a>
                                 </li>
-                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('admin/servicios') }}">Servicios</a>
-                                </li> 
-                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('admin/instalaciones') }}">Instalaciones</a>
-                                </li>                                                             
-                                <li>
-                                    <a href="#">Agenda<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicoslistado') }}">Administrar</a>
-                                        </li>
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicos') }}">Agregar Nueva</a>
-                                        </li>
-                                    </ul>
+                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/inventario/disponible' ) }}">Disponibles</a>
+                                </li>
+                                <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/inventario/agotados') }}">Agotados</a>
+                                </li>
+                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/inventario/ajuste' ) }}">Ajustes</a>
+                                </li>
+                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/inventario/inicial' ) }}">Inventario Inicial</a>
                                 </li>
                             </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -344,15 +316,10 @@
         </nav>
 
         <div id="page-wrapper">
-			 <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">@yield('page_heading')</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-           </div>
 			<div class="row">
                 @include('partials.message')
 				@yield('section')
+
             </div>
             <!-- /#page-wrapper -->
         </div>

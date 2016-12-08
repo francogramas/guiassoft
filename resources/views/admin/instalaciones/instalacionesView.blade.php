@@ -4,7 +4,6 @@
 
 {!! Form::open(['method'=>'POST']) !!}
 {{ csrf_field() }}
-
 <div class="row">
 	<div class="col-sm-3">
 		<div class="form-group">

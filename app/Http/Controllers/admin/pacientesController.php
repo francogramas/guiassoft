@@ -95,4 +95,30 @@ class pacientesController extends Controller
         Session::flash('save','El registro fué actualizado correctamente');
         return redirect('admin/pacienteslistado');
     }
+
+    public function autocomplete(Request $request){
+        $term = $request->input('term');
+        $results = array();
+        
+        $queries=pacientes::select('tipodocumentopaci.cod','tipousuario_id','pacientes.id','pacientes.nacimiento','pacientes.documento','pacientes.nombre1','pacientes.nombre2','pacientes.apellido1','pacientes.apellido2','tipousuario_id','sexo.descripcion as sexo','pacientes.seguromedico_id')
+        ->join('tipodocumentopaci','tipodocumentopaci.id','=','pacientes.tipodocumentopaci_id')        
+        ->join('sexo','sexo.id','=','pacientes.sexo_id')        
+        ->where('nombre1', 'LIKE', '%'.$term.'%')
+        ->orWhere('nombre2', 'LIKE', '%'.$term.'%')
+        ->orWhere('apellido1', 'LIKE', '%'.$term.'%')
+        ->orWhere('apellido2', 'LIKE', '%'.$term.'%')
+        ->orWhere('documento', 'LIKE', '%'.$term.'%')
+        ->take(20)->get();
+        foreach ($queries as $query)
+        {
+            $results[] = [ 'id' => $query->id, 'value' => $query->cod.' '.$query->documento.' || '.$query->nombre1.' '.$query->nombre2.' '.$query->apellido1.' '.$query->apellido2, 'nacimiento'=>$query->nacimiento, 'seguromedico_id'=>$query->seguromedico_id,'tipousuario_id'=>$query->tipousuario_id, 'sexo'=>$query->sexo];
+        }
+        return Response()->json($results);        
+    }
+
+    public function pacientesCard($id){
+        $pacientes=pacientes::where('id',$id)->first();
+        return view ('admin/pacientes/pacientesCardView')
+        ->with('pacientes',$pacientes);
+    }
 }

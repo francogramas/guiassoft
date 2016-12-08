@@ -1,3 +1,1 @@
-.theadN{
-	font-weight:bold; background-color: rgba(240, 173, 78, 0.4);
-}
+.theadN{font-weight:bold; background-color: rgba(240, 173, 78, 0.4);}.EN_ESPERA {background-color:rgba(30, 70, 199, 0.68);} .RECEPCIONADO{background-color:rgba(33, 178, 129, 0.76);} .PENDIENTE {background-color:rgba(238, 156, 8, 0.69);} .CANCELADO {background-color:rgba(255, 0, 0, 0.62);} .EN_ATENCIÓN {background-color:rgba(159, 0, 255, 0.45);} .FINALIZADO {background-color:rgba(61, 200, 21, 0.72);} .VISTO {background-color:rgba(200, 21, 125, 0.46);}
