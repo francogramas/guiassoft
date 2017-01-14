@@ -1,5 +1,5 @@
 <h4>Historial de citas</h4>
-<table class="table table-striped" style="font-size: 10pt;">
+<table class="table table-striped" style="font-size: 8pt;">
 	<thead>
 		<tr>
 			<td>Fecha</td>
@@ -10,7 +10,7 @@
 	@foreach ($citas as $cita)
 		<tr>
 			<td>{{ $cita->fecha }}</td>
-			<td>{{ $cita->Especialidad }}</td>
+			<td>{{ $cita->especialidad }}</td>
 		</tr>
 	@endforeach		
 	</tbody>

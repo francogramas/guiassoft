@@ -57,8 +57,28 @@ class agendaController extends Controller
 
    public function store(Request $request){
         if ($request->ajax()){
-            $request{'users_id'}=Auth::id();
-            $result = agenda::create($request->all());
+             $request{'users_id'}=Auth::id();
+            
+            $instalacion=instalacion::select('cupo')
+            ->where('id',$request->instalacion_id)
+            ->first();
+            
+            $agendaCita=agenda::where('fecha',$request->fecha)
+            ->where('hora',$request->hora)
+            ->where('empleados_id',$request->empleados_id)  
+            ->where('agendaestado_id','<>',4)
+            ->where('agendaestado_id','<>',5)            
+            ->count();
+            
+            if ($agendaCita < $instalacion->cupo){
+                $result = agenda::create($request->all());
+                $agenda=DB::select('update agenda set agendaestado_id=3 where agendaestado_id like 1 and fecha=current_date and hora<=current_time;'); 
+            }
+            else{
+                $result=false;
+            }
+            
+
             if($result){
                 return response()->json(['succes'=>'true']);
             }
@@ -83,12 +103,14 @@ class agendaController extends Controller
         return response()->json($cita);
     }
 
-    public function mostrarListaCitasPacientes(Request $request, $pacientes_id){
+    public function mostrarListaCitasPacientes($pacientes_id){
         $citas=agenda::select('agenda.fecha','especialidad.nombre as especialidad')
         ->join('especialidad','agenda.especialidad_id','=','especialidad.id')
         ->where('agenda.pacientes_id',$pacientes_id)
         ->where('agenda.agendaestado_id',7)
-        ->get();
+        ->orderBy('fecha','desc')
+        ->paginate(20);
+
         return view('agenda.citasListaView')
         ->with('citas',$citas);
     }

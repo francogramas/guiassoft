@@ -262,4 +262,47 @@ $(function()
         $("#divlistarInstalaciones").empty().html(response);        
       });
   });
+
+//--------------------------------------Borrar Antecedente----------------------------
+  $(".borrarAntecedente").click(function(event) {
+      var antecedenteId = $('input[type=hidden]', $(this).closest("tr")).val();
+      var token=$("input[name=_token]").val();
+
+      console.log(antecedenteId);
+
+      $.ajax({
+          url: '/antecedenteborrar/'+antecedenteId,
+          headers:{'X-CSRF-TOKEN':token},      
+          type: 'POST',
+          dataType: 'json', 
+      });
+
+      var antecedenteclase_id = $('#claseId').val();
+      $.ajax({
+        url: '/listarantecedentes/' + antecedenteclase_id + "",
+        type: 'GET',
+        success:function(data){
+          $("#admAntecedentes").empty().html(data);
+        },
+        error:function(data){
+          console.log('Error');
+        }
+    });
+  });
+
+  //-----------------------------------Antecentes ---------------------------------------
+  $(".antecedentesClase").click(function(event) {
+    var antecedenteclase_id = $('input[type=hidden]', $(this).closest("tr")).val();
+    $('#claseId').val(antecedenteclase_id);
+    $.ajax({
+        url: '/listarantecedentes/' + antecedenteclase_id + "",
+        type: 'GET',
+        success:function(data){
+          $("#admAntecedentes").empty().html(data);
+        },
+        error:function(data){
+          console.log('Error');
+        }
+    });
+  });
 });

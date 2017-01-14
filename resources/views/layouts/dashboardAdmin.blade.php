@@ -323,17 +323,20 @@
                                 </li> 
                                 <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
                                     <a href="{{ url ('admin/instalaciones') }}">Instalaciones</a>
-                                </li>                                                             
-                                <li>
-                                    <a href="#">Agenda<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicoslistado') }}">Administrar</a>
-                                        </li>
-                                        <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                            <a href="{{ url ('/admin/segurosmedicos') }}">Agregar Nueva</a>
-                                        </li>
-                                    </ul>
+                                </li>                                                                                 
+                            </ul>
+                        </li>
+                        <li >
+                            <a href="#"><i class="fa  fa-heart fa-fw"></i>Historias Clínicas<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('hc/antecedente') }}">Antecedentes</a>
+                                </li>
+                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('hc/etapashc') }}">Etapas</a>
+                                </li>
+                                <li {{ (Request::is('*empresa') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('hc/antecedente') }}">Estructura</a>
                                 </li>
                             </ul>
                         </li>

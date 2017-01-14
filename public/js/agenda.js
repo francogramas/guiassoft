@@ -191,9 +191,8 @@ $(document).ready(function(){
 	        $("#agendaListado").empty().html(data);
 	      },
 	      error:function(data){
-	        console.log('Error')
+	        console.log('Error');
 	      }
 	    }); 
-
+  
 });
-

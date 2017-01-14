@@ -9,7 +9,8 @@ function llenarAgenda(){
     $(".listarCita").empty();
     $(".estadoCita").empty();
     $(".contrato").empty();
-    $(".razonsocial").empty();    $(".edad").empty();
+    $(".razonsocial").empty();
+    $(".edad").empty();
     $(".botones").empty();
 
     for (i = 0; i < response.length; i++) {  
@@ -47,6 +48,9 @@ $(".agendarCita").click(function(event) {
    		type: 'POST',
    		dataType: 'json',
    		data: {fecha: _fecha, hora: _hora, agendaestado_id: _agendaestado_id, pacientes_id: _pacientes_id, empleados_id: _empleados_id, seguromedico_id: _seguromedico_id, contratos_id: _contratos_id, especialidad_id: _especialidad_id, instalacion_id: _instalacion_id, tipousuario_id: _tipousuario_id, users_id:_users_id},
+    })
+    .done(function(resultdado) {
+      console.log(resultdado);
     })
     .fail(function() {
     	console.log("error");
