@@ -13,7 +13,13 @@ class CreateEtapashcTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('etapashc', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre');
+            $table->string('descripcion');
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class CreateEtapashcTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('etapashc');
     }
 }
