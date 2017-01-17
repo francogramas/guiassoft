@@ -1,26 +1,26 @@
-$(document).on("change", "#datepicker", function () {         
+$(document).on("change", "#datepicker", function () {
 	$("#fechaAgenda").val($(this).val());
 	$.ajax({
 	      url: '/listaragenda/'+$("#especialidadespecialista").val()+'/'+$("#fechaAgenda").val()+"",
 	      type: 'GET',
 	      success:function(data){
-	        $("#agendaListado").empty();	        
+	        $("#agendaListado").empty();
 	        $("#agendaListado").empty().html(data);
 	      },
 	      error:function(data){
 	        console.log('Error')
 	      }
-	    });	
+	    });
 });
 
 $(document).ready(function(){
 	//------------------- Colocar la fecha
 	var now = new Date();
 	var month=now.getMonth()+1;
-	var fecha= now.getFullYear()+'-'+month+'-'+now.getDate();	
+	var fecha= now.getFullYear()+'-'+month+'-'+now.getDate();
 	$("#fechaAgenda").val(fecha);
 	$( "#datepicker").datepicker({autoSize: true, dateFormat: "yy-mm-dd", });
-  
+
   //------------------------------ Autompetar pacientes
   $("#agePaciente").autocomplete({
     source: "/buscar/pacientes",
@@ -31,13 +31,13 @@ $(document).ready(function(){
       $('#sexo').val(ui.item.sexo);
       $('#edad').val(getAge(ui.item.nacimiento));
 
-	    $.get("/mostrar/pacientes/"+ui.item.id+"", function(response,state){	        	      
-	          $("#pacientesCard").empty().html(response);        
-	      }); 
+	    $.get("/mostrar/pacientes/"+ui.item.id+"", function(response,state){
+	          $("#pacientesCard").empty().html(response);
+	      });
 
-      $.get("/mostrar/pacientesCitas/"+ui.item.id+"", function(response,state){                  
-            $("#agendaHistorial").empty().html(response);        
-        }); 
+      $.get("/mostrar/pacientesCitas/"+ui.item.id+"", function(response,state){
+            $("#agendaHistorial").empty().html(response);
+        });
 	    $('#agePaciente').val(ui.item.value);
       $('#idPaciente').val(ui.item.id);
       $('#sexo').val(ui.item.sexo);
@@ -49,14 +49,46 @@ $(document).ready(function(){
      $("#agePaciente").val("");
      $('#idPaciente').val("0");
   });
+//--------------------Llenar todos los cmb que hacen parte de ambitos de procedimientos
+
+$("#cmbAmbito").change(function(event) {
+  $.get("/listar/servicios/"+event.target.value+"", function(response,state){
+      $("#cmbServicios").empty();
+      $("#cmbEspecialidadServicio").empty();
+      $("#CmbCupsEspecialidad").empty();
+
+      for (i = 0; i < response.length; i++) {
+          $("#cmbServicios").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
+        }
+
+      if (response.length>0){
+        $.get("/listar/especialidad/"+response[0].id+"", function(response,state){
+          for (i = 0; i < response.length; i++) {
+            $("#cmbEspecialidadServicio").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
+          }
+
+          if (response.length>0){
+              $.get("/listar/cupsespecialidad/"+response[0].id+"", function(response,state){
+              for (i = 0; i < response.length; i++) {
+                $("#CmbCupsEspecialidad").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
+              }
+            });
+          };
+
+        });
+      }
+  });
+});
+
 //------------------------------------Llenar cmb servicios
  $("#cmbServicios").change(function(event){
       $.get("/listar/especialidad/"+event.target.value+"", function(response,state){
         $("#cmbEspecialidadServicio").empty();
         $("#especialidadespecialista").empty();
+        $("#CmbCupsEspecialidad").empty();
 
         if (response.length>0){
-          $.get("/listar/especialidadempleados/"+response[0].id+"", function(response,state){        
+          $.get("/listar/especialidadempleados/"+response[0].id+"", function(response,state){
             for (i = 0; i < response.length; i++) {
               $("#especialidadespecialista").append("<option value='" + response[i].id+ "'>" + response[i].nombre  + " " + response[i].apellido1  + " " + response[i].apellido2 + "</option>")
             }
@@ -64,6 +96,24 @@ $(document).ready(function(){
         }
         for (i = 0; i < response.length; i++) {
           $("#cmbEspecialidadServicio").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
+        }
+        if (response.length>0){
+              $.get("/listar/cupsespecialidad/"+response[0].id+"", function(response,state){
+              for (i = 0; i < response.length; i++) {
+                $("#CmbCupsEspecialidad").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
+              }
+            });
+          };
+      });
+    });
+//-------------------------------------- Llenar Cups
+
+$("#cmbEspecialidadServicio").change(function(event){
+      $.get("/listar/cupsespecialidad/"+event.target.value+"", function(response,state){
+        $("#CmbCupsEspecialidad").empty();
+
+        for (i = 0; i < response.length; i++) {
+          $("#CmbCupsEspecialidad").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
         }
       });
     });
@@ -80,8 +130,8 @@ $(document).ready(function(){
   var dateNow = now.getDate();
  //date must be mm/dd/yyyy
   var dob = new Date(dateString.substring(6,10),
-                     dateString.substring(0,2)-1,                   
-                     dateString.substring(3,5)                  
+                     dateString.substring(0,2)-1,
+                     dateString.substring(3,5)
                      );
 
 
@@ -165,7 +215,7 @@ $(document).ready(function(){
         for (i = 0; i < response.length; i++) {
           $("#especialidadespecialista").append("<option value='" + response[i].id+ "'>" + response[i].nombre  + " " + response[i].apellido1  + " " + response[i].apellido2 + "</option>")
         }
-      });     
+      });
   });
 
 	$("#especialidadespecialista").change(function(event) {
@@ -173,13 +223,13 @@ $(document).ready(function(){
 	      url: '/listaragenda/'+event.target.value+'/'+$("#fechaAgenda").val()+"",
 	      type: 'GET',
 	      success:function(data){
-	        $("#agendaListado").empty();	        
+	        $("#agendaListado").empty();
 	        $("#agendaListado").empty().html(data);
 	      },
 	      error:function(data){
 	        console.log('Error')
 	      }
-	    }); 
+	    });
 	});
 
 
@@ -187,12 +237,11 @@ $(document).ready(function(){
 	      url: '/listaragenda/'+$("#especialidadespecialista").val()+'/'+$("#fechaAgenda").val()+"",
 	      type: 'GET',
 	      success:function(data){
-	        $("#agendaListado").empty();	        
+	        $("#agendaListado").empty();
 	        $("#agendaListado").empty().html(data);
 	      },
 	      error:function(data){
 	        console.log('Error');
 	      }
-	    }); 
-  
+	    });
 });

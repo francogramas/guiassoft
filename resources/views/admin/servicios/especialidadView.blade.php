@@ -112,16 +112,16 @@ $("#btnActualizarEspecialidad").click(function(event) {
 	@foreach ($especialidad as $especalidadi)
 		<tr>
 			<td>
-				{!! Form::hidden('especialidad_id'.$especalidadi->id, $especalidadi->id ,['id'=>'especialidad_id'.$especalidadi->id]) !!}					
+				{!! Form::hidden('especialidad_id'.$especalidadi->id, $especalidadi->id ,['id'=>'especialidad_id'.$especalidadi->id]) !!}
 				<a href="#" class="listarCups">{{ $especalidadi->nombre }}</a>
 			</td>
 			<td>
-				<a href="#" id="borrarespecialidad" class="btn btn-danger btn-xs borrarespecialidad" data-toggle="tooltip" data-placement="right" title="Eliminar"><i class="fa fa-times"></i></a>				
+				<a href="#" id="borrarespecialidad" class="btn btn-danger btn-xs borrarespecialidad" data-toggle="tooltip" data-placement="right" title="Eliminar"><i class="fa fa-times"></i></a>
         <a href="#" id="editarEspecialidad" class="btn btn-info btn-xs editarEspecialidad" data-toggle="modal" data-target="#myModalEsp" data-placement="right" title="Editar"><i class="fa fa-edit"></i></a>
         <a href="#" id="asginarEspecialidad" class="btn btn-warning btn-xs asginarEspecialidad" data-toggle="modal" data-target="#myModalEspEmpl" data-placement="right" title="Editar"><i class="fa fa-users"></i></a>
 			</td>
 		</tr>
-		@endforeach		
+		@endforeach
 	</tbody>
 </table>
 
@@ -130,7 +130,6 @@ $("#btnActualizarEspecialidad").click(function(event) {
 
   <div class="modal fade" id="myModalEsp" role="dialog">
     <div class="modal-dialog">
-    
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header"   >
@@ -141,7 +140,7 @@ $("#btnActualizarEspecialidad").click(function(event) {
           <div class="form-group" style="width: 100%">
             <div class="row">
               <div class="col-sm-9">
-                <input type="text" id="txtEspecialidad" class="form-control" style="width: 100%">             
+                <input type="text" id="txtEspecialidad" class="form-control" style="width: 100%">
               </div>
               <div class="col-sm-3">
                 <button type="button" id="btnActualizarEspecialidad" class="btn btn-success" data-dismiss="modal"><i class="fa fa- fa-check"></i></button>
@@ -150,27 +149,24 @@ $("#btnActualizarEspecialidad").click(function(event) {
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 
   <div class="modal fade" id="myModalEspEmpl" role="dialog">
     <div class="modal-dialog">
-    
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header"   >
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Asignar Especialidad a Profesionales</h4>
         </div>
-        
+
         <div class="modal-body">
-          <div id="divEspecialidadEmpleados">            
+          <div id="divEspecialidadEmpleados">
           </div>
         </div>
       </div>
-      
     </div>
   </div>
-  
 </div>

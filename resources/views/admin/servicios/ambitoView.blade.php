@@ -2,7 +2,7 @@
 	<tbody>
 	@foreach ($ambitoprocedimiento as $ambito)
 		<tr>
-			<td>					 
+			<td>
 			 <a href="{{ route('servicios.show',$ambito->id) }}">{{ $ambito->descripcion }}</a>
 			</td>
 		</tr>

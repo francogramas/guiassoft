@@ -4,10 +4,9 @@
       var antecedenteId = $('input[type=hidden]', $(this).closest("tr")).val();
       var token=$("input[name=_token]").val();
 
-     
       $.ajax({
           url: '/antecedenteborrar/'+antecedenteId,
-          headers:{'X-CSRF-TOKEN':token},      
+          headers:{'X-CSRF-TOKEN':token},
           type: 'POST',
           dataType: 'json',
       });
@@ -50,14 +49,14 @@
     });
     listarAntecedente(_antecedenteclase_id);
   });
-  
+
   $(".editarAntecedente").click(function(event) {
     var antecedenteId = $('input[type=hidden]', $(this).closest("tr")).val();
   	$("#txtIdAntecedenteEdit").val(antecedenteId);
   	 $.get("/hc/antecedente/"+antecedenteId+"", function(response,state){
-        $("#antecedenteNombreEdit").val(response.nombre);        
+        $("#antecedenteNombreEdit").val(response.nombre);
         $("#antecedenteSugerenciaEdit").val(response.sugerencia);
-        $("#antecedentetypeEdit").val(response.type);        
+        $("#antecedentetypeEdit").val(response.type);
       });
   });
 
@@ -124,7 +123,7 @@
 					<a href="#" id="agregarAntecedente" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Agregar antecedente"><i class="fa fa-plus"></i></a>
 			  	</li>
 			</ul>
-		</div>			
+		</div>
 		<div>
 			<table class="table table-striped">
 				<thead>
@@ -147,7 +146,7 @@
 
 						</td>
 						<td>
-							{{ $antecedente->type }}							
+							{{ $antecedente->type }}
 						</td>
 						<td>
 							<a href="#" class="btn btn-danger btn-xs borrarAntecedente" data-toggle="tooltip" data-placement="right" title="Eliminar"><i class="fa fa-times"></i></a>
@@ -203,9 +202,9 @@
 				  			<option value="date">Fecha</option>
 				  			<option value="email">Correo</option>
 				  		</select>
-				  	</li>		
-				</ul>     
-              </div>       
+				  	</li>
+				</ul>
+              </div>
               <div class="col-sm-3">
               	<h2></h2>
                 <button type="button" id="btnActualizarAntecedente" class="btn btn-success" data-dismiss="modal" title="Actualizar"><i class="fa fa- fa-check"></i></button>
@@ -214,6 +213,5 @@
           </div>
         </div>
       </div>
-      
     </div>
   </div>

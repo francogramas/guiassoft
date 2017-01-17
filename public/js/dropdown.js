@@ -140,6 +140,40 @@ $(document).ready(function(){
       }
     });
   });
+
+//---------------------------------------------- Agregar etapas Hc
+  $('#guardarEtapaHc').click(function(event) {
+    var _nombre=$('#txtEtapa').val();
+    var token=$("input[name=_token]").val();
+    var route='/etapashcCrear';
+    $.ajax({
+      url: route,
+      headers:{'X-CSRF-TOKEN':token},
+      type: 'post',
+      dataType: 'json',
+      data: {nombre: _name},
+      success:function(data){
+        if (data.success='true'){
+            console.log('Hecho')
+        }
+      },
+      error:function(data){
+        console.log('Error')
+      }
+    });
+
+    $.ajax({
+      url: '/listarservicios/'+ambito_id,
+      type: 'GET',
+      success:function(data){
+        $("#divlistarservicios").empty().html(data);
+      },
+      error:function(data){
+        console.log('Error')
+      }
+    });
+  });
+
   //------------------------------------- Listar Servicios
 $(".listarServicios").click(function(event) {    
     var ambito_id = $('input[type=hidden]', $(this).closest("td")).val();

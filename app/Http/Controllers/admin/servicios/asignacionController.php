@@ -22,7 +22,7 @@ class asignacionController extends Controller
     public function index(){
         $ambitoprocedimiento_id=0;
     	$ambitoprocedimiento=ambitoprocedimiento::all();
-        $servicios=servicios::where('ambitoprocedimiento_id','0')->get();        
+        $servicios=servicios::where('ambitoprocedimiento_id','0')->get();
     	return view('admin.servicios.asignacionView')
         ->with('ambitoprocedimiento',$ambitoprocedimiento)
     	->with('ambitoprocedimiento_id',$ambitoprocedimiento_id)
@@ -32,7 +32,7 @@ class asignacionController extends Controller
         ->with('ambito','');
 
     }
-    
+
     public function store(Request $request){
         if ($request->ajax()){
                 $result = servicios::create($request->all());
@@ -42,7 +42,7 @@ class asignacionController extends Controller
             else{
                 return response()->json(['succes'=>'false']);
             }
-        }        
+        }
     }
 
     public function storeEspecialidad(Request $request){
@@ -54,13 +54,13 @@ class asignacionController extends Controller
             else{
                 return response()->json(['succes'=>'false']);
             }
-        }        
+        }
     }
 
     public function storeEspecialidadEmpleados(Request $request){
         if ($request->ajax()){
             $result=especialidadempleados::create($request->all());
-        }        
+        }
     }
 
     public function storeCupespecialidad(Request $request){
@@ -72,7 +72,7 @@ class asignacionController extends Controller
             else{
                 return response()->json(['succes'=>'false']);
             }
-        }        
+        }
     }
 
     public function listarEspecialidad($id){
@@ -94,10 +94,17 @@ class asignacionController extends Controller
         ->with('empleados',$empleados);
     }
 
+    public function getServicios(Request $request, $id){
+        if ($request->ajax()){
+            $servicios=servicios::where('ambitoprocedimiento_id',$id)->get();
+            return response()->json($servicios);
+        }
+    }
+
     public function getEspecialidad (Request $request, $id)
     {
         if ($request->ajax()){
-            $especialidad=especialidad::select('id','nombre')->where('servicios_id',$id)->get();            
+            $especialidad=especialidad::select('id','nombre')->where('servicios_id',$id)->get();
             return response()->json($especialidad);
         }
     }
@@ -126,15 +133,25 @@ class asignacionController extends Controller
         return view('admin.servicios.cupsespecialidadView')
         ->with('cupsespecialidad',$cupsespecialidad);
     }
-    
-    public function destroyServicios($id){        
+
+    public function getCupsespecialidad(Request $request, $id){
+        if ($request->ajax()){
+            $cupsespecialidad=cupsespecialidad::select('cupsespecialidad.id','cups.codigo','cups.nombre')
+            ->join('cups','cupsespecialidad.cups_codigo','cups.codigo')
+            ->where('cupsespecialidad.especialidad_id',$id)->get();
+
+            return response()->json($cupsespecialidad);
+        }
+    }
+
+    public function destroyServicios($id){
         $servicios = servicios::FindOrFail($id);
         $servicios->delete();
     }
 
     public function destroyEspecialidad($id){
         $especialidad = especialidad::FindOrFail($id);
-        $especialidad->delete();        
+        $especialidad->delete();
     }
 
      public function destroyCupsespecialidad($id){

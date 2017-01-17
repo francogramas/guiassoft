@@ -37,6 +37,6 @@
 					<a href="#" id="borrarcupsespecialidad" class="btn btn-danger btn-xs borrarcupsespecialidad" data-toggle="tooltip" data-placement="right" title="Eliminar"><i class="fa fa-times"></i></a>
 				</td>
 			</tr>
-		@endforeach					
+		@endforeach
 	</tbody>
 </table>
