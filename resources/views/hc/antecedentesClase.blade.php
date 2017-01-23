@@ -40,7 +40,7 @@
       data: {nombre: _nombre, antecedenteclase_id: _antecedenteclase_id, type:_type, sugerencia:_sugerencia},
       success:function(data){
         if (data.success='true'){
-            console.log('Hecho')
+            
         }
       },
       error:function(data){
@@ -78,7 +78,7 @@
       data: {nombre: _nombre, antecedenteclase_id: _antecedenteclase_id, type:_type, sugerencia:_sugerencia},
       success:function(data){
         if (data.success='true'){
-            console.log('Hecho')
+            
         }
       },
       error:function(data){

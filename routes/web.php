@@ -45,6 +45,8 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::post('/instalacionCrear','admin\instalaciones\instalacionesController@storeInstalacion');
 	Route::post('/instalacionEmpleadoCrear','admin\instalaciones\instalacionesController@storeInstalacionEmpleado');
 	Route::post('/etapashcCrear','hc\etapashcController@store');
+	Route::post('/itemshcCrear','hc\etapashcController@storeItemshc');
+	Route::post('/etapashcespecialidadCrear','hc\etapashcController@storeetapashcespecialidad');
 
 	Route::put('/serviciosactualizar/{id}','admin\servicios\asignacionController@updateServicios');
 	Route::put('/especialidadactualizar/{id}','admin\servicios\asignacionController@updateEspecialidad');
@@ -52,6 +54,9 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::put('/instalacionactualizar/{id}','admin\instalaciones\instalacionesController@updateInstalacion');
 	Route::put('/antecedenteactualizar/{id}','hc\antecedenteController@updateAntecedente');
 	Route::put('/cambiarestadoCita/{cita}/{estado}','agenda\agendaController@cambiarEstadoCita');
+	Route::put('/etapashcactualizar/{id}','hc\etapashcController@updateEtapasHc');
+	Route::put('/itemshcactualizar/{id}','hc\etapashcController@updateItemshc');
+
 
 	Route::get('/cupsespecialidadborrar/{id}','admin\servicios\asignacionController@destroyCupsespecialidad');
 	Route::get('/especialidadborrar/{id}','admin\servicios\asignacionController@destroyEspecialidad');
@@ -59,6 +64,9 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::post('/instalacionborrar/{id}','admin\instalaciones\instalacionesController@destroyInstalacion');
 	Route::post('/antecedenteborrar/{id}','hc\antecedenteController@destroyAntecedente');
 	Route::post('/instalacionempleadoborrar/{id}','admin\instalaciones\instalacionesController@destroyInstalacionEmpleado');
+	Route::post('/etapashcborrar/{id}','hc\etapashcController@destroyEtapahc');
+	Route::post('/etapashcespecialidadborrar/{id}','hc\etapashcController@destroyEtapahcEspecialidad');
+	Route::post('/itemshcborrar/{id}','hc\etapashcController@destroyItemshc');
 
 
 	Route::get('/listarantecedentes/{id}', 'hc\antecedenteController@listarAntecentesClase');
@@ -68,6 +76,9 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::get('/listaragenda/{empleados_id}/{fecha}','agenda\agendaController@listarAgenda');
 
 	Route::get('/listarambitos','admin\servicios\asignacionController@listarAmbitos');
+	Route::get('/listaretapashc','hc\etapashcController@listarEtapas');
+	Route::get('/listaretapashcespecialidad/{id}','hc\etapashcController@listarEtapasEspecaialidad');
+	Route::get('/listaritemshc/{id}','hc\etapashcController@listarItemshc');
 
 	Route::get('/listarempleados/{id}','admin\instalaciones\instalacionesController@listarEmpleados');
 	Route::get('/listarempleadosEspecialidad/{id}','admin\servicios\asignacionController@listarEmpleados');
@@ -76,9 +87,12 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 
 	Route::get('/buscar/cups','admin\servicios\asignacionController@autocomplete');
 	Route::get('/buscar/pacientes','admin\pacientesController@autocomplete');
+	Route::get('/buscar/etapashc','hc\etapashcController@autocomplete');
+
 	Route::get('/mostrar/pacientes/{id}','admin\pacientesController@pacientesCard');
 	Route::get('/mostrar/pacientesCitas/{id}','agenda\agendaController@mostrarListaCitasPacientes');
 	Route::get('/mostrarcita/{fecha}/{empleados_id}','agenda\agendaController@mostrarCita');
+	Route::get('/hc/mostraritemshc/{id}','hc\etapashcController@edititemshc');
 
 	Route::get('/listar/especialidad/{id}','admin\servicios\asignacionController@getEspecialidad');
 	Route::get('/listar/especialidadempleados/{id}','admin\servicios\asignacionController@getEspecialidadEmpleados');

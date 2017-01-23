@@ -13,7 +13,7 @@
       data: {empleados_id: empleadoId, especialidad_id: especialidadId},
       success:function(data){
         if (data.success='true'){
-            console.log('Hecho')
+            
         }
       },
       error:function(data){

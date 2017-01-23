@@ -87,7 +87,7 @@ $(document).ready(function(){
       data: {nombre: name, ambitoprocedimiento_id: ambito_id},
       success:function(data){
         if (data.success='true'){
-            console.log('Hecho')
+            
         }
       },
       error:function(data){
@@ -121,7 +121,7 @@ $(document).ready(function(){
       data: {nombre: name, servicios_id: serviciosId},
       success:function(data){
         if (data.success='true'){
-            console.log('Hecho')
+            
         }
       },
       error:function(data){
@@ -144,6 +144,7 @@ $(document).ready(function(){
 //---------------------------------------------- Agregar etapas Hc
   $('#guardarEtapaHc').click(function(event) {
     var _nombre=$('#txtEtapa').val();
+    var _descripcion='na';
     var token=$("input[name=_token]").val();
     var route='/etapashcCrear';
     $.ajax({
@@ -151,27 +152,19 @@ $(document).ready(function(){
       headers:{'X-CSRF-TOKEN':token},
       type: 'post',
       dataType: 'json',
-      data: {nombre: _name},
+      data: {nombre: _nombre, descripcion:_descripcion},
       success:function(data){
         if (data.success='true'){
-            console.log('Hecho')
+            
         }
       },
       error:function(data){
         console.log('Error')
       }
     });
-
-    $.ajax({
-      url: '/listarservicios/'+ambito_id,
-      type: 'GET',
-      success:function(data){
-        $("#divlistarservicios").empty().html(data);
-      },
-      error:function(data){
-        console.log('Error')
-      }
-    });
+     $.get("/listaretapashc/"+"", function(response,state){
+          $("#DivListaretapashc").empty().html(response);        
+      });
   });
 
   //------------------------------------- Listar Servicios
@@ -227,7 +220,7 @@ $(function()
       data: {especialidad_id: especialidadId, cups_codigo: cupsCodigo},
       success:function(data){
         if (data.success='true'){
-            console.log('Hecho')
+            
         }
       },
       error:function(data){
@@ -284,7 +277,7 @@ $(function()
       data: {nombre: nombre1, cupo:cupo1, inst_tipo_id:inst_tipo_id1},
       success:function(data){
         if (data.success='true'){
-            console.log('Hecho')
+            
         }
       },
       error:function(data){
@@ -338,5 +331,215 @@ $(function()
           console.log('Error');
         }
     });
+  });
+  //-----------------------------------------Borrar etapashc
+  $(".borrarEtapa").click(function(event) {
+      var etapashcId = $('input[type=hidden]', $(this).closest("tr")).val();
+      var token=$("input[name=_token]").val();
+
+      $.ajax({
+          url: '/etapashcborrar/'+etapashcId,
+          headers:{'X-CSRF-TOKEN':token},      
+          type: 'POST',
+          dataType: 'json',
+      });
+
+      $.get("/listaretapashc/"+"", function(response,state){
+          $("#DivListaretapashc").empty().html(response);        
+      });
+  });
+
+  //-------------------------------editar etapas hc
+  $(".editarEtapa").click(function(event) {
+      var etapashcid = $('input[type=hidden]', $(this).closest("tr")).val();
+      mostraretapa(etapashcid);
+  });
+
+  var mostraretapa = function(id)
+  {
+    $.get("/hc/etapashc/"+id+"/edit", function(data){
+           $("#txteditaretapashc").val(data.nombre);
+           $("#idetapashc").val(data.id);
+        });
+  };
+  //----------------------- actualizar etapas hc
+  $("#btnActualizarEtapasHc").click(function(event) {
+    var etapashcNombre= $("#txteditaretapashc").val();
+    var etapashcDescripcion='na';
+    var etapashcId=$("#idetapashc").val();
+    var token=$("input[name=_token]").val();
+
+    $.ajax({
+        url: "/etapashcactualizar/"+etapashcId,
+        headers:{'X-CSRF-TOKEN':token},     
+        type: 'PUT',
+        dataType: 'json',
+        data: {id:etapashcId, nombre:etapashcNombre, descripcion:etapashcDescripcion},
+      });
+
+       $.get("/listaretapashc/"+"", function(response,state){
+          $("#DivListaretapashc").empty().html(response);        
+      });
+  });
+  //---------------------------------------Autocomplete para etapas hc
+  $(function()
+    {
+       $("#txtetapahc").autocomplete({
+        source: "/buscar/etapashc",
+        minLength: 1,
+        select: function(event, ui) {
+          $('#txtetapahc').val(ui.item.value);
+          $('#hdnidetapashc').val(ui.item.id);
+        }
+      });
+        $("#txtetapahc").click(function(){
+        $("#txtetapahc").val("");
+        $('#hdnidetapashc').val("0");
+
+      });
+    });
+
+  
+  //---------------------------------------------- Agregar etapas HcEspecialidad
+  $('#guardarEtapaHcServicio').click(function(event) {
+    var _etapashc_id=$('#hdnidetapashc').val();
+    var _cupsespecialidad_id=$('#CmbCupsEspecialidad').val();
+    var token=$("input[name=_token]").val();
+    var route='/etapashcespecialidadCrear';
+    console.log(_etapashc_id);
+    console.log(_cupsespecialidad_id);
+    $.ajax({
+      url: route,
+      headers:{'X-CSRF-TOKEN':token},
+      type: 'post',
+      dataType: 'json',
+      data: {etapashc_id: _etapashc_id, cupsespecialidad_id: _cupsespecialidad_id},
+      success:function(data){
+        if (data.success='true'){
+            
+        }
+      },
+      error:function(data){
+        console.log('Error')
+      }
+    });
+     $.get("/listaretapashcespecialidad/"+_cupsespecialidad_id+"", function(response,state){
+          $("#DivListarEtapashcEspecialidad").empty().html(response);        
+      });
+  });
+  $("#CmbCupsEspecialidad").change(function(event){
+      $("#DivListaritemshc").empty();
+      $.get("/listaretapashcespecialidad/"+event.target.value+"", function(response,state){
+          $("#DivListarEtapashcEspecialidad").empty().html(response);
+      });
+    });
+ //-----------------------------------------Borrar etapashcEspecialidad
+  $(".borrarEtapaEspecialiadad").click(function(event) {
+    var etapashcespecialidadId = $('input[type=hidden]', $(this).closest("tr")).val();
+    var _cupsespecialidad_id=$('#CmbCupsEspecialidad').val();
+      
+      var token=$("input[name=_token]").val();
+
+      $.ajax({
+          url: '/etapashcespecialidadborrar/'+etapashcespecialidadId,
+          headers:{'X-CSRF-TOKEN':token},      
+          type: 'POST',
+          dataType: 'json',
+      });
+
+      $.get("/listaretapashcespecialidad/"+_cupsespecialidad_id+"", function(response,state){
+          $("#DivListarEtapashcEspecialidad").empty().html(response);        
+      });
+  });
+  //-------------------------------------------------------Listar Items de etapas
+  $(".etapashcespecialidad").click(function(event) {
+      var _etapashcespecialidad_id = $('input[type=hidden]', $(this).closest("tr")).val();
+      $("#lblEtapa").text($(this).text());   
+      $("#hdnidetapashcespecialidad").val(_etapashcespecialidad_id);   
+       $.get("/listaritemshc/"+_etapashcespecialidad_id+"", function(response,state){
+          $("#DivListaritemshc").empty().html(response);        
+      });
+  });
+
+  //---------------------------------------------- Agregar Items Hc
+  $('#agregarItemHc').click(function(event) {
+    var _nombre=$('#itemNombre').val();
+    var _etapashcespecialidad_id=$('#hdnidetapashcespecialidad').val();
+    var _sugerencia=$('#itemSugerencia').val();
+    var _type=$('#itemtype').val();
+    var token=$("input[name=_token]").val();
+    var route='/itemshcCrear';
+    $.ajax({
+      url: route,
+      headers:{'X-CSRF-TOKEN':token},
+      type: 'post',
+      dataType: 'json',
+      data: {nombre: _nombre, etapashcespecialidad_id: _etapashcespecialidad_id, sugerencia:_sugerencia, type: _type},
+      success:function(data){
+        if (data.success='true'){
+            
+        }
+      },
+      error:function(data){
+        console.log('Error')
+      }
+    });
+     $.get("/listaritemshc/"+_etapashcespecialidad_id+"", function(response,state){
+          $("#DivListaritemshc").empty().html(response);        
+      });
+  });
+
+  $(".borrarItems").click(function(event) {
+      var ItemshcId = $('input[type=hidden]', $(this).closest("tr")).val();
+      var token=$("input[name=_token]").val();
+      var _etapashcespecialidad_id=$('#hdnidetapashcespecialidad').val();
+
+
+      $.ajax({
+          url: '/itemshcborrar/'+ItemshcId,
+          headers:{'X-CSRF-TOKEN':token},      
+          type: 'POST',
+          dataType: 'json',
+      });
+
+       $.get("/listaritemshc/"+_etapashcespecialidad_id+"", function(response,state){
+          $("#DivListaritemshc").empty().html(response);        
+      });
+  }); 
+  //---------------------------Mosrar itemhc-------------------------------------------
+  $(".editarItems").click(function(event) {
+      var _itemshc_id = $('input[type=hidden]', $(this).closest("tr")).val();
+      mostrarItemhc(_itemshc_id);
+  });
+
+  var mostrarItemhc = function(id)
+  {
+    $.get("/hc/mostraritemshc/"+id+"", function(data){
+           $("#txteditarItems").val(data.nombre);
+           $("#EditaritemSugerencia").val(data.sugerencia);
+           $("#editaritemtype").val(data.type);
+           $("#idItemshc").val(data.id);
+        });
+  };
+//-----------------------------Actualizar Itemhc---------------------------------------------
+$("#btnActualizarItems").click(function(event) {
+    var _nombre= $("#txteditarItems").val();
+    var _etapashcespecialidad_id=$('#hdnidetapashcespecialidad').val();
+    var _sugerencia=$('#EditaritemSugerencia').val();
+    var _type=$('#editaritemtype').val();
+    var _id=$("#idItemshc").val();
+      var token=$("input[name=_token]").val();
+    
+    $.ajax({
+        url: "/itemshcactualizar/"+_id,
+        headers:{'X-CSRF-TOKEN':token},     
+        type: 'PUT',
+        dataType: 'json',
+        data: {nombre:_nombre, etapashcespecialidad_id:_etapashcespecialidad_id, sugerencia:_sugerencia, type:_type},
+      });
+
+      $.get("/listaritemshc/"+_etapashcespecialidad_id+"", function(response,state){
+          $("#DivListaritemshc").empty().html(response);        
+      });
   });
 });

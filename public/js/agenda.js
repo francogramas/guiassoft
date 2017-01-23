@@ -56,6 +56,8 @@ $("#cmbAmbito").change(function(event) {
       $("#cmbServicios").empty();
       $("#cmbEspecialidadServicio").empty();
       $("#CmbCupsEspecialidad").empty();
+      $("#DivListarEtapashcEspecialidad").empty();
+      $("#DivListaritemshc").empty();
 
       for (i = 0; i < response.length; i++) {
           $("#cmbServicios").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
@@ -69,6 +71,9 @@ $("#cmbAmbito").change(function(event) {
 
           if (response.length>0){
               $.get("/listar/cupsespecialidad/"+response[0].id+"", function(response,state){
+                  $.get("/listaretapashcespecialidad/"+response[0].id+"", function(response,state){
+                    $("#DivListarEtapashcEspecialidad").empty().html(response);
+                  });
               for (i = 0; i < response.length; i++) {
                 $("#CmbCupsEspecialidad").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
               }
@@ -86,6 +91,10 @@ $("#cmbAmbito").change(function(event) {
         $("#cmbEspecialidadServicio").empty();
         $("#especialidadespecialista").empty();
         $("#CmbCupsEspecialidad").empty();
+        $("#DivListarEtapashcEspecialidad").empty();
+        $("#DivListaritemshc").empty();
+
+
 
         if (response.length>0){
           $.get("/listar/especialidadempleados/"+response[0].id+"", function(response,state){
@@ -99,6 +108,9 @@ $("#cmbAmbito").change(function(event) {
         }
         if (response.length>0){
               $.get("/listar/cupsespecialidad/"+response[0].id+"", function(response,state){
+                $.get("/listaretapashcespecialidad/"+response[0].id+"", function(response,state){
+                   $("#DivListarEtapashcEspecialidad").empty().html(response);
+                });
               for (i = 0; i < response.length; i++) {
                 $("#CmbCupsEspecialidad").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
               }
@@ -109,9 +121,14 @@ $("#cmbAmbito").change(function(event) {
 //-------------------------------------- Llenar Cups
 
 $("#cmbEspecialidadServicio").change(function(event){
-      $.get("/listar/cupsespecialidad/"+event.target.value+"", function(response,state){
-        $("#CmbCupsEspecialidad").empty();
-
+      $("#CmbCupsEspecialidad").empty();
+      $("#DivListarEtapashcEspecialidad").empty();
+      $("#DivListaritemshc").empty();
+      
+      $.get("/listar/cupsespecialidad/"+event.target.value+"", function(response,state){        
+        $.get("/listaretapashcespecialidad/"+response[0].id+"", function(response,state){
+            $("#DivListarEtapashcEspecialidad").empty().html(response);
+        });
         for (i = 0; i < response.length; i++) {
           $("#CmbCupsEspecialidad").append("<option value='" + response[i].id+ "'>" + response[i].nombre + "</option>")
         }
