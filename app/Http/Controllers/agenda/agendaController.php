@@ -49,9 +49,15 @@ class agendaController extends Controller
         $agenda=DB::select('call cambiar_estado_cita(?,?);', [$estado, $cita]);            
     }
 
-     public function listarAgenda($empleados_id, $fecha){
+    public function listarAgenda($empleados_id, $fecha){
             $agenda=DB::select('call llenar_agenda_empleado(?,?)', [$empleados_id, $fecha]);
             return view('agenda.agendaTablaView')
+            ->with('agenda',$agenda);
+    }
+
+    public function listarAgendaServicio($empleados_id, $fecha){
+            $agenda=DB::select('call llenar_agenda_empleado(?,?)', [$empleados_id, $fecha]);
+            return view('servicios.consultaexterna.agendaTablaView')
             ->with('agenda',$agenda);
     }
 

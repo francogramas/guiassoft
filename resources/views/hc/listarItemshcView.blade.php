@@ -64,7 +64,7 @@ $("#btnActualizarItems").click(function(event) {
 	</thead>
 	<tbody>
 	@foreach ($itemshc as $itemshci)
-		<tr>
+		<tr draggable="true">
 			<td>
 				{{ $itemshci->nombre }}
 				<input type="hidden" value={{ $itemshci->id }}>

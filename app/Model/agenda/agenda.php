@@ -9,7 +9,7 @@ class agenda extends Model
     
     protected $table='agenda';
 	protected $primarykey='id';	
-	protected $fillable=['id','fecha','hora','agendaestado_id','pacientes_id','empleados_id','seguromedico_id','contratos_id','especialidad_id','instalacion_id','tipousuario_id','users_id'];
+	protected $fillable=['id','fecha','hora','agendaestado_id','pacientes_id','empleados_id','seguromedico_id','contratos_id','especialidad_id','instalacion_id','tipousuario_id','users_id', 'etapa'];
 
 	public function agendaestado()
 	{

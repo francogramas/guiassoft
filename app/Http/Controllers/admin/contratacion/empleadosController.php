@@ -21,10 +21,20 @@ use guiassoft\Model\ciudades;
 use Session;
 use guiassoft\Model\pais;
 
+use guiassoft\User;
+use Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+
 
 
 class empleadosController extends Controller
 {
+    use RegistersUsers;
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
     	$role=role::pluck('name','id');
     	$tipodocumentopaci = tipodocumentopaci::pluck('descripcion','id');   
@@ -43,6 +53,7 @@ class empleadosController extends Controller
     public function store(Request $request){
     	empleados::create($request->all());
 	    Session::flash('save','El empleado fué ingresado correctamente');
+        User::create(['name' => $request{'nombre'}.' '.$request{'apellido1'}.' '.$request{'apellido2'}, 'email' =>$request{'correo'} ,'role_id'=>$request{'role_id'}, 'password' => bcrypt($request{'documento'}),]);
         return redirect()->route('empleados.index');
     }
 
@@ -84,5 +95,14 @@ class empleadosController extends Controller
         $empleados ->fill($input)->save();
         Session::flash('save','El registro fué actualizado correctamente');
         return redirect('admin/empleadoslistado');
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
     }
 }

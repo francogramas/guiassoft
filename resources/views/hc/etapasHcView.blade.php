@@ -134,7 +134,7 @@
 						</thead>
 						<tbody>
 						@foreach ($etapashcespecialidad as $etapashci)
-							<tr>
+							<tr draggable="true">
 								<td>
 									<a href="#" id="etapashcespecialidad" class="etapashcespecialidad">{{ $etapashci->nombre }}</a>
 									<input type="hidden" value={{ $etapashci->id }}>
@@ -192,7 +192,7 @@
 						</thead>
 						<tbody>
 						@foreach ($itemshc as $itemshci)
-							<tr>
+							<tr draggable="true">
 								<td>
 									{{ $itemshci->nombre }}
 									<input type="hidden" value={{ $itemshci->id }}>

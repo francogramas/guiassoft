@@ -10,7 +10,22 @@ $(document).on("change", "#datepicker", function () {
 	      error:function(data){
 	        console.log('Error')
 	      }
-	    });
+	 });
+});
+
+$(document).on("change", "#datepickerServicios", function () {
+  $("#fechaAgenda").val($(this).val());
+  $.ajax({
+        url: '/listaragendaservicios/'+$("#especialidadespecialista").val()+'/'+$("#fechaAgenda").val()+"",
+        type: 'GET',
+        success:function(data){
+          $("#agendaListadoconsultaexterna").empty();
+          $("#agendaListadoconsultaexterna").empty().html(data);
+        },
+        error:function(data){
+          console.log('Error');
+        }
+      });
 });
 
 $(document).ready(function(){
@@ -20,6 +35,7 @@ $(document).ready(function(){
 	var fecha= now.getFullYear()+'-'+month+'-'+now.getDate();
 	$("#fechaAgenda").val(fecha);
 	$( "#datepicker").datepicker({autoSize: true, dateFormat: "yy-mm-dd", });
+  $( "#datepickerServicios").datepicker({autoSize: true, dateFormat: "yy-mm-dd", });
 
   //------------------------------ Autompetar pacientes
   $("#agePaciente").autocomplete({
@@ -261,4 +277,15 @@ $("#cmbEspecialidadServicio").change(function(event){
 	        console.log('Error');
 	      }
 	    });
+  $.ajax({
+        url: '/listaragendaservicios/'+$("#especialidadespecialista").val()+'/'+$("#fechaAgenda").val()+"",
+        type: 'GET',
+        success:function(data){
+          $("#agendaListadoconsultaexterna").empty();
+          $("#agendaListadoconsultaexterna").empty().html(data);
+        },
+        error:function(data){
+          console.log('Error');
+        }
+      });
 });

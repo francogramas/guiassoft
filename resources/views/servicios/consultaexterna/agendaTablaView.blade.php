@@ -1,4 +1,5 @@
 <script>
+
 llenarAgenda();
 
 function llenarAgenda(){
@@ -19,49 +20,10 @@ function llenarAgenda(){
       $("#razonsocial"+response[i].horareferencia_id).append("<div class='inDiv'>"+ response[i].razonsocial + "</div>");
       $("#edad"+response[i].horareferencia_id).append("<div class='inDiv'>"+getAge(response[i].nacimiento) + "</div>");
       $("#contrato"+response[i].horareferencia_id).append("<div class='inDiv'>"+response[i].contrato + "</div>");
-      $("#botones"+response[i].horareferencia_id).append("<div class='inDiv'>"+"<button class='btn btn-xs btn-danger' onclick='cambiarCita("+ response[i].id +",4)' data-toggle='tooltip' data-placement='right' title='Cancelar Cita'> <i class='fa fa-times'></i> </button> <button class='btn btn-xs btn-info'  data-toggle='tooltip' data-placement='right' title='Ver Cita'> <i class='fa fa-eye'></i> </button> <button class='btn btn-xs btn-success' onclick='cambiarCita("+ response[i].id +",2)' data-toggle='tooltip' data-placement='right' title='Habilitar Cita'> <i class='fa fa-reply'></i> </button>"+"</div>");
+      $("#botones"+response[i].horareferencia_id).append("<div class='inDiv'>"+"<button class='btn btn-xs btn-success' onclick='cambiarCita("+ response[i].id +",6)' data-toggle='tooltip' data-placement='right' title='Atender'> <i class='fa fa-play-circle-o'></i> </button> <button class='btn btn-xs btn-info'  data-toggle='tooltip' data-placement='right' title='Ver Cita'> <i class='fa fa-eye'></i> </button> <button class='btn btn-xs btn-warning' onclick='cambiarCita("+ response[i].id +",2)' data-toggle='tooltip' data-placement='right' title='Agregar nota aclaratoria'> <i class='fa fa-book'></i> </button>"+"</div>");
     }
   });  
 };
-//--------------------------------------------- Guardar la cita------------------------------------------------------------------------
-
-$(".agendarCita").click(function(event) {
-    var ambito_id = $('input[id=instalacionId]', $(this).closest("tr")).val();
-    var IdHora = $('input[id=IdHora]', $(this).closest("tr")).val();
-		
- 		var _fecha = $("#fechaAgenda").val();
- 		var _hora = $(this).val();
- 		var _agendaestado_id = 1;
- 		var _pacientes_id = $("#idPaciente").val();
- 		var _empleados_id = $("#especialidadespecialista").val();
- 		var _seguromedico_id = $("#seguroMedico").val();
- 		var _contratos_id = $("#contrato").val();
- 		var _especialidad_id= $("#cmbEspecialidadServicio").val();
-   	var _instalacion_id = $('input[id=instalacionId]', $(this).closest("tr")).val();
-   	var _tipousuario_id = $("#tipousuario").val();
-   	var _users_id =1;
-   	var token=$("input[name=_token]").val();
-    //------------------------guarda la cita
-   $.ajax({
-   		url: '/agendaCrear/',
-   		headers:{'X-CSRF-TOKEN':token},
-   		type: 'POST',
-   		dataType: 'json',
-   		data: {fecha: _fecha, hora: _hora, agendaestado_id: _agendaestado_id, pacientes_id: _pacientes_id, empleados_id: _empleados_id, seguromedico_id: _seguromedico_id, contratos_id: _contratos_id, especialidad_id: _especialidad_id, instalacion_id: _instalacion_id, tipousuario_id: _tipousuario_id, users_id:_users_id},
-    })
-    .done(function(resultdado) {
-      
-    })
-    .fail(function() {
-    	console.log("error");
-  });
-    $("#idPaciente").val("0");
-    $("#agePaciente").val("");
-    $("#edad").val("");
-
-      //---------------lista todos las citas
-    llenarAgenda();
-});
 
 //--------------------------------------------------------------------------
 function cambiarCita (_id,_estado) {
@@ -73,7 +35,14 @@ function cambiarCita (_id,_estado) {
       dataType: 'json',
       data: {cita:_id, estado: _estado},
     });
-  llenarAgenda();
+  if (_estado==6){
+    $("#agendaListadoconsultaexterna").empty();
+    console.log('la');
+  }
+  else
+  {
+    llenarAgenda();
+  }
 }
 
 //------------------------------------------------------ ccalculos de edad
@@ -172,47 +141,52 @@ function cambiarCita (_id,_estado) {
     height: 24px;
   }
 </style>
-<table id="tablaAgenda" class="table table-striped" style="font-size: 10pt;">
-	<thead>
-		<tr>
-			<td style="width: 75px;">Hora</td>
-			<td>Instalacion</td>
-			<td>Listado</td>
-      <td>Edad</td>
-      <td>Estado</td>      
-      <td>Seguro Médico</td>
-      <td>Contrato</td>
-			<td style="width: 120px;"></td>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach ($agenda as $agendai)
-		<tr>
-			<td> 
-        <button id="btnHora" class="btn btn-xs btn-primary btn-outline agendarCita" title="Asignar Cita" value={{ $agendai->Hora }} > {{ $agendai->Hora }} </button> </td>
-			<td>
-        {{ $agendai->InstalacionN }}
-				<input id="instalacionId" type="hidden" value={{ $agendai->Instalacion_id }}>
-			</td>
-			<td>
-				<div class="listarCita" id={{'listarCita'.$agendai->id }}></div>
-			</td>
-      <td>
-        <div class="edad" id={{'edad'.$agendai->id }}></div>        
-      </td>
-      <td>
-        <div class="estadoCita" id={{'estadoCita'.$agendai->id }}></div>
-      </td>
-      <td>
-        <div class="razonsocial" id={{'razonsocial'.$agendai->id }}></div>        
-      </td>
-      <td>
-        <div class="contrato" id={{'contrato'.$agendai->id }}></div>        
-      </td>
-			<td>
-        <div class="botones" id={{'botones'.$agendai->id }}></div>				
-			</td>
-		</tr>
-		@endforeach		
-	</tbody>
-</table>
+<div class="panel panel-info">
+  <div class="panel-heading">Agenda</div>
+  <div class="panel-body">
+    <table id="tablaAgenda" class="table table-striped" style="font-size: 10pt;">
+      <thead>
+        <tr>
+          <td style="width: 75px;">Hora</td>
+          <td>Instalacion</td>
+          <td>Listado</td>
+          <td>Edad</td>
+          <td>Estado</td>      
+          <td>Seguro Médico</td>
+          <td>Contrato</td>
+          <td style="width: 120px;"></td>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($agenda as $agendai)
+        <tr>
+          <td> 
+            <button id="btnHora"   class="btn btn-xs btn-primary btn-outline agendarCita" title="Hora" value={{ $agendai->Hora }} > {{ $agendai->Hora }} </button> </td>
+          <td>
+            {{ $agendai->InstalacionN }}
+            <input id="instalacionId" type="hidden" value={{ $agendai->Instalacion_id }}>
+          </td>
+          <td>
+            <div class="listarCita" id={{'listarCita'.$agendai->id }}></div>
+          </td>
+          <td>
+            <div class="edad" id={{'edad'.$agendai->id }}></div>        
+          </td>
+          <td>
+            <div class="estadoCita" id={{'estadoCita'.$agendai->id }}></div>
+          </td>
+          <td>
+            <div class="razonsocial" id={{'razonsocial'.$agendai->id }}></div>        
+          </td>
+          <td>
+            <div class="contrato" id={{'contrato'.$agendai->id }}></div>        
+          </td>
+          <td>
+            <div class="botones" id={{'botones'.$agendai->id }}></div>        
+          </td>
+        </tr>
+        @endforeach   
+      </tbody>
+    </table>
+  </div>
+</div>

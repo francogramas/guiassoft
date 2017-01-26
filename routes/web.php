@@ -18,9 +18,13 @@ Route::get('/departamentos/{id}','general\estadosController@getEstados');
 Route::get('/ciudades/{id}','general\ciudadesController@getCiudades');
 Route::get('/tipoinstalaciones/{id}','admin\instalaciones\instalacionesController@getTipoInstalacion');
 
-Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'manager']],
+
+
+Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'manager','MEDICO(A) GENERAL']],
  function () {
-	Route::get('/', 'agenda\agendaController@index');
+	Route::resource('/', 'admin\direccionadorController');
+	Route::resource('/home', 'admin\direccionadorController');
+	Route::resource('/direccionador', 'admin\direccionadorController');
 	Route::resource('/admin/empresa', 'admin\empresaController');
 	Route::resource('/admin/pacientes', 'admin\pacientesController');
 	Route::resource('/admin/pacienteslistado', 'admin\pacientesListadoController');
@@ -100,3 +104,22 @@ Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'ma
 	Route::get('/listar/servicios/{id}','admin\servicios\asignacionController@getServicios');
 
 });
+Route::group(['middleware' => ['auth', 'roles'],'roles' => ['MEDICO(A) GENERAL']],
+ function () {
+ 	Route::resource('/home', 'admin\direccionadorController');
+	Route::resource('/direccionador', 'admin\direccionadorController');
+	Route::resource('/servicios/consultaexterna', 'servicios\consultaexternaController');
+	Route::resource('/servicios/urgencias', 'servicios\urgenciasController');
+	Route::get('/listaragendaservicios/{empleados_id}/{fecha}','agenda\agendaController@listarAgendaServicio');
+	Route::put('/cambiarestadoCita/{cita}/{estado}','agenda\agendaController@cambiarEstadoCita');
+	
+
+	
+ });
+
+Route::group(['middleware' => ['auth', 'roles'],'roles' => ['administrator', 'manager','MEDICO(A) GENERAL']],
+ function () {
+	Route::resource('/', 'admin\direccionadorController');
+	Route::resource('/home', 'admin\direccionadorController');
+	Route::resource('/direccionador', 'admin\direccionadorController');
+ });

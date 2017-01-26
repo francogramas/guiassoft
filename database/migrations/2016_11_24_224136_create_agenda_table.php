@@ -26,6 +26,7 @@ class CreateAgendaTable extends Migration
             $table->integer('instalacion_id')->unsigned()->index();
             $table->integer('tipousuario_id')->unsigned()->index();
             $table->integer('users_id')->unsigned()->index();
+            $table->integer('etapa')->default('0');
 
             $table->foreign('agendaestado_id')->references('id')->on('agendaestado');
             $table->foreign('pacientes_id')->references('id')->on('pacientes');
